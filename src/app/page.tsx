@@ -37,15 +37,14 @@ export default function Page() {
                 className="object-cover"
                 priority
               />
-              {/* полупрозрачная чёрная накладка */}
               <div className="absolute inset-0 bg-black/50" />
             </div>
           }
         >
           <Button
-            mode="white"
+            mode="outline"
             size="s"
-            style={{ color: theme.button_color }}
+            style={{ color: 'white'}}
             className="shadow-md"
           >
             Перейти
