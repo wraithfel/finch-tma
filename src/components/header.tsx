@@ -25,15 +25,16 @@ export default function Header({
         borderBottom: `1px solid ${theme.hint_color}40`, 
       }}
     >
-      <Image
-        src={logoUrl}
-        alt="Finch logo"
-        width={28}
-        height={28}
-        className="select-none"
-        priority
-      />
-
+      <div className="relative flex-1 h-full">
+        <Image
+          src={logoUrl}
+          alt="Логотип"
+          fill
+          className="object-contain"
+          priority
+        />
+      </div>
+      
       <div className="flex items-center gap-2">
         <span
           className="text-sm font-medium leading-none"
