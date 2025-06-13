@@ -19,7 +19,7 @@ export default function Header({
 }: HeaderProps) {
   return (
     <header
-      className="flex items-center justify-between h-12 px-3"
+      className="flex items-center justify-between h-20 px-3"
       style={{
         backgroundColor: theme.bg_color,
         borderBottom: `1px solid ${theme.hint_color}40`, 
