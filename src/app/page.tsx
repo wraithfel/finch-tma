@@ -44,7 +44,9 @@ export default function Page() {
           <Button
             mode="outline"
             size="s"
-            style={{ color: 'white'}}
+            style={{ color: 'white',
+              border: '2px solid white',
+            }}
             className="shadow-md"
           >
             Перейти
