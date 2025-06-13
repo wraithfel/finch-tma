@@ -27,7 +27,7 @@ export default function Page() {
         theme={theme}
       />
 
-      <main className="p-1">
+      <main>
         <Banner
           type="section"
           header="Изучить меню"
@@ -45,7 +45,7 @@ export default function Page() {
             </div>
           }
         >
-          <Button mode="outline" size="s">
+          <Button mode="white" size="s">
             Перейти
           </Button>
         </Banner>
