@@ -13,22 +13,18 @@ interface UserData {
 
 
 export default function Page() {
-  // храним все данные юзера, а не только username
   const [userData, setUserData] = useState<UserData | null>(null);
 
   useEffect(() => {
-    // код ниже выполнится только в браузере
     (async () => {
       const { default: WebApp } = await import('@twa-dev/sdk');
 
       WebApp.ready();
       WebApp.onEvent('themeChanged', () => console.log('Theme changed'));
 
-      // initDataUnsafe доступна сразу после ready()
       setUserData(WebApp.initDataUnsafe?.user as UserData ?? null);
     })();
 
-    // отписываемся при размонтировании
     return () => {
       import('@twa-dev/sdk').then(({ default: WebApp }) =>
         WebApp.offEvent?.('themeChanged', (() => {})),
