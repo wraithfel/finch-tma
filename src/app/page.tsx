@@ -7,9 +7,9 @@ import { useTelegramUser } from '@/lib/hooks/useTelegramUser';
 import Header from '@/components/header';
 
 export default function Page() {
-  const { userData } = useTelegramUser();
+  const { userData, theme } = useTelegramUser();
 
-  if (!userData) {
+  if (!userData || !theme) {
     return (
       <div className="p-4 font-bold text-3xl text-cyan-300">
         Loading…
@@ -23,6 +23,7 @@ export default function Page() {
         logoUrl="/logo-finch.svg"
         avatarUrl={userData.photo_url || ''}
         firstName={userData.first_name}
+        theme={theme}        
       />
 
       <Banner

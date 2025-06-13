@@ -1,0 +1,1 @@
+export type ThemeParams = import('@twa-dev/types').ThemeParams;

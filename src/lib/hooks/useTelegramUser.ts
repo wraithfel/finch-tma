@@ -2,29 +2,36 @@
 
 import { useEffect, useState } from 'react';
 import type { UserData } from '../types/user';
+import type { ThemeParams } from '../types/theme';
 
-export function useTelegramUser() {
+interface UseTelegramUserResult {
+  userData: UserData | null;
+  theme: ThemeParams | null;
+}
+
+export function useTelegramUser(): UseTelegramUserResult {
   const [userData, setUserData] = useState<UserData | null>(null);
+  const [theme,   setTheme]   = useState<ThemeParams | null>(null);
 
   useEffect(() => {
-    let offThemeChange: (() => void) | undefined;
+    let cleanup: (() => void) | undefined;
 
     (async () => {
       const { default: WebApp } = await import('@twa-dev/sdk');
       WebApp.ready();
 
-      const onThemeChange = () => console.log('Theme changed');
-      WebApp.onEvent('themeChanged', onThemeChange);
-      offThemeChange = () => WebApp.offEvent?.('themeChanged', onThemeChange);
+      setUserData(WebApp.initDataUnsafe?.user as UserData);
+      setTheme(WebApp.themeParams as ThemeParams);
 
-      const rawUser = WebApp.initDataUnsafe.user as UserData | null;
-      setUserData(rawUser);
+      const onThemeChange = () => {
+        setTheme(WebApp.themeParams as ThemeParams);
+      };
+      WebApp.onEvent('themeChanged', onThemeChange);
+      cleanup = () => WebApp.offEvent?.('themeChanged', onThemeChange);
     })();
 
-    return () => {
-      offThemeChange?.();
-    };
+    return () => cleanup?.();
   }, []);
 
-  return { userData };
+  return { userData, theme };
 }
