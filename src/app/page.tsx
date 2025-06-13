@@ -1,75 +1,47 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import '@telegram-apps/telegram-ui/dist/styles.css';
 import { Banner, Button, Image } from '@telegram-apps/telegram-ui';
 import React from 'react';
-
-interface UserData {
-  id: number,
-  first_name: string,
-  last_name?: string,
-  username: string,
-  language_code: string,
-  is_premium?: boolean
-}
-
+import { useTelegramUser } from '@/lib/hooks/useTelegramUser';
+import Header from '@/components/header';
 
 export default function Page() {
-  const [userData, setUserData] = useState<UserData | null>(null);
+  // Передаём в хук только UserData,
+  // avatarUrl он сам рассчитывает и отдаёт в результате
+  const { userData, avatarUrl } = useTelegramUser();
 
-  useEffect(() => {
-    (async () => {
-      const { default: WebApp } = await import('@twa-dev/sdk');
-
-      WebApp.ready();
-      WebApp.onEvent('themeChanged', () => console.log('Theme changed'));
-
-      setUserData(WebApp.initDataUnsafe?.user as UserData ?? null);
-    })();
-
-    return () => {
-      import('@twa-dev/sdk').then(({ default: WebApp }) =>
-        WebApp.offEvent?.('themeChanged', (() => {})),
-      );
-    };
-  }, []);
+  if (!userData) {
+    return (
+      <div className="p-4 font-bold text-3xl text-cyan-300">
+        Loading…
+      </div>
+    );
+  }
 
   return (
     <main className="p-4">
-      {userData ? (
-        <ul className="text-2xl font-bold mb-4 space-y-1 list-none">
-          <li>ID: {userData.id}</li>
-          <li>First name: {userData.first_name}</li>
-          <li>Last name: {userData.last_name}</li>
-          <li>Username: {userData.username}</li>
-          <li>Language: {userData.language_code}</li>
-          <li>Is Premium: {userData.is_premium ? 'Yes' : 'No'}</li>
-        </ul>
-      ) : (
-        <div className="font-bold text-3xl text-amber-300">Loading…</div>
-      )}
+      <Header
+        logoUrl="/logo-finch.svg"         
+        avatarUrl={avatarUrl}
+        firstName={userData.first_name}
+      />
 
       <Banner
-  before={<Image size={48} />}
-  callout="Urgent notification"
-  description="Start exploring TON in a new, better way"
-  header="Introducing TON Space"
-  onCloseIcon={function noRefCheck(){}}
-  type="section"
->
-  <React.Fragment key=".0">
-    <Button size="s">
-      Try it out
-    </Button>
-    <Button
-      mode="plain"
-      size="s"
-    >
-      Maybe later
-    </Button>
-  </React.Fragment>
-</Banner>
+        before={<Image size={48} />}
+        callout="Urgent notification"
+        description="Start exploring TON in a new, better way"
+        header="Introducing TON Space"
+        onCloseIcon={() => {}}
+        type="section"
+      >
+        <>
+          <Button size="s">Try it out</Button>
+          <Button mode="plain" size="s">
+            Maybe later
+          </Button>
+        </>
+      </Banner>
     </main>
   );
 }
