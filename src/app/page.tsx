@@ -1,6 +1,5 @@
-'use client'
+'use client';
 
-import WebApp from '@twa-dev/sdk';
 import { useEffect, useState } from 'react';
 
 interface UserData {
@@ -12,34 +11,45 @@ interface UserData {
   is_premium?: boolean
 }
 
-export default function Home() {
+
+export default function Page() {
+  // храним все данные юзера, а не только username
   const [userData, setUserData] = useState<UserData | null>(null);
 
   useEffect(() => {
-    if (WebApp.initDataUnsafe.user){
-      setUserData(WebApp.initDataUnsafe.user as UserData)
-    }
-  })
+    // код ниже выполнится только в браузере
+    (async () => {
+      const { default: WebApp } = await import('@twa-dev/sdk');
+
+      WebApp.ready();
+      WebApp.onEvent('themeChanged', () => console.log('Theme changed'));
+
+      // initDataUnsafe доступна сразу после ready()
+      setUserData(WebApp.initDataUnsafe?.user as UserData ?? null);
+    })();
+
+    // отписываемся при размонтировании
+    return () => {
+      import('@twa-dev/sdk').then(({ default: WebApp }) =>
+        WebApp.offEvent?.('themeChanged', (() => {})),
+      );
+    };
+  }, []);
 
   return (
-    <main className='p-4'>
-      {userData ?
-      (
-        <li className='text-2xl font-bold mb-4'>
-          <ul>ID: {userData.id}</ul>
-          <ul>First Name : {userData.first_name}</ul>
-          <ul>Last Name: {userData.last_name}</ul>
-          <ul>Username : {userData.username}</ul>
-          <ul>Language: {userData.language_code}</ul>
-          <ul>Is Premium: {userData.is_premium ? "Yes" : "No"}</ul>
-        </li>
-      ) :
-      (
-        <div className='font-bold text-3xl text-amber-300'>
-          Loading....
-        </div>
-      )
-    }
+    <main className="p-4">
+      {userData ? (
+        <ul className="text-2xl font-bold mb-4 space-y-1 list-none">
+          <li>ID: {userData.id}</li>
+          <li>First name: {userData.first_name}</li>
+          <li>Last name: {userData.last_name}</li>
+          <li>Username: {userData.username}</li>
+          <li>Language: {userData.language_code}</li>
+          <li>Is Premium: {userData.is_premium ? 'Yes' : 'No'}</li>
+        </ul>
+      ) : (
+        <div className="font-bold text-3xl text-amber-300">Loading…</div>
+      )}
     </main>
-    )
+  );
 }
