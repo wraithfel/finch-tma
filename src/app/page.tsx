@@ -1,7 +1,7 @@
 'use client';
 
 import '@telegram-apps/telegram-ui/dist/styles.css';
-import { Banner, Button, Image } from '@telegram-apps/telegram-ui';
+import { Banner, Button} from '@telegram-apps/telegram-ui';
 import React from 'react';
 import { useTelegramUser } from '@/lib/hooks/useTelegramUser';
 import Header from '@/components/header';
@@ -28,20 +28,18 @@ export default function Page() {
        <main className="p-1">
 
       <Banner
-        before={<Image size={48} />}
-        callout="Urgent notification"
-        description="Start exploring TON in a new, better way"
-        header="Introducing TON Space"
-        onCloseIcon={() => {}}
-        type="section"
-      >
-        <>
-          <Button size="s">Try it out</Button>
-          <Button mode="plain" size="s">
-            Maybe later
-          </Button>
-        </>
-      </Banner>
+  background={<img alt="Finch dish" src="./finch-dish.jpg" style={{width: '150%'}}/>}
+  header="Изучить меню"
+  subheader="Карточки блюд с возможностью задать вопрос AI-помощнику"
+  type="section"
+>
+  <Button
+    mode="white"
+    size="s"
+  >
+    Перейти
+  </Button>
+</Banner>
     </main>
   </>
   );
