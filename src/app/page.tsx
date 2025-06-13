@@ -3,19 +3,15 @@
 import '@telegram-apps/telegram-ui/dist/styles.css';
 import { Banner, Button } from '@telegram-apps/telegram-ui';
 import React from 'react';
+import Image from 'next/image';
 import { useTelegramUser } from '@/lib/hooks/useTelegramUser';
 import Header from '@/components/header';
-import Image from 'next/image';
 
 export default function Page() {
   const { userData, theme } = useTelegramUser();
 
   if (!userData || !theme) {
-    return (
-      <div className="p-4 font-bold text-3xl text-cyan-300">
-        Loading…
-      </div>
-    );
+    return <div className="p-4 font-bold text-3xl text-cyan-300">Loading…</div>;
   }
 
   return (
@@ -27,7 +23,7 @@ export default function Page() {
         theme={theme}
       />
 
-      <main>
+      <main className="p-1">
         <Banner
           type="section"
           header="Изучить меню"
@@ -41,11 +37,17 @@ export default function Page() {
                 className="object-cover"
                 priority
               />
+              {/* полупрозрачная чёрная накладка */}
               <div className="absolute inset-0 bg-black/50" />
             </div>
           }
         >
-          <Button mode="white" size="s">
+          <Button
+            mode="white"
+            size="s"
+            style={{ color: theme.button_color }}
+            className="shadow-md"
+          >
             Перейти
           </Button>
         </Banner>
