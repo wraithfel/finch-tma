@@ -19,40 +19,35 @@ export default function Header({
 }: HeaderProps) {
   return (
     <header
-      className="flex items-center justify-between px-4 py-3 shadow-sm"
+      className="flex items-center justify-between h-12 px-3"
       style={{
         backgroundColor: theme.bg_color,
-        color: theme.text_color,
-        borderBottom: `1px solid ${theme.button_color}`,
+        borderBottom: `1px solid ${theme.hint_color}40`, 
       }}
     >
-      {/* логотип */}
       <Image
         src={logoUrl}
         alt="Finch logo"
-        priority
-        width={56}
-        height={56}
+        width={28}
+        height={28}
         className="select-none"
+        priority
       />
 
-      {/* приветствие и аватар */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2">
         <span
-          className="font-semibold text-base leading-none"
-          style={{ color: theme.hint_color }}
+          className="text-sm font-medium leading-none"
+          style={{ color: theme.text_color }}
         >
           Привет, {firstName}
         </span>
+
         <Avatar
-          size={48}
-          src={
-            avatarUrl ??
-            'https://telegrampics.firebaseio.com/default-avatar.png'
-          }
-          alt={`${firstName}'s avatar`}
+          size={40}
+          src={avatarUrl ?? ''}
+          alt={`${firstName} avatar`}
           style={{
-            border: `2px solid ${theme.button_color}`,
+            border: `1px solid ${theme.button_color}`,
             borderRadius: '50%',
           }}
         />
