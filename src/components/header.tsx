@@ -19,10 +19,10 @@ export default function Header({
 }: HeaderProps) {
   return (
     <header
-      className="flex items-center justify-between h-20 px-1"
+      className="flex items-center justify-between h-20 px-0"
       style={{
         backgroundColor: theme.bg_color,
-        borderBottom: `1px solid ${theme.hint_color}40`, 
+        borderBottom: `1px solid ${theme.hint_color}40`,
       }}
     >
       <div className="relative flex-1 h-16">
@@ -30,19 +30,18 @@ export default function Header({
           src={logoUrl}
           alt="Логотип"
           fill
-          className="object-contain"
           priority
+          className="object-contain object-left"
         />
       </div>
-      
-      <div className="flex items-center gap-2">
+
+      <div className="flex items-center gap-2 pr-2">
         <span
           className="text-sm font-medium leading-none"
           style={{ color: theme.text_color }}
         >
           Привет, {firstName}
         </span>
-
         <Avatar
           size={40}
           src={avatarUrl ?? ''}
