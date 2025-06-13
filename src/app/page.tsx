@@ -1,10 +1,11 @@
 'use client';
 
 import '@telegram-apps/telegram-ui/dist/styles.css';
-import { Banner, Button} from '@telegram-apps/telegram-ui';
+import { Banner, Button } from '@telegram-apps/telegram-ui';
 import React from 'react';
 import { useTelegramUser } from '@/lib/hooks/useTelegramUser';
 import Header from '@/components/header';
+import Image from 'next/image';
 
 export default function Page() {
   const { userData, theme } = useTelegramUser();
@@ -23,24 +24,31 @@ export default function Page() {
         logoUrl="/logo-finch.svg"
         avatarUrl={userData.photo_url || ''}
         firstName={userData.first_name}
-        theme={theme}        
+        theme={theme}
       />
-       <main className="p-1">
 
-      <Banner
-  background={<img alt="Finch dish" src="./finch-dish.jpg" style={{width: '150%'}}/>}
-  header="Изучить меню"
-  subheader="Карточки блюд с возможностью задать вопрос AI-помощнику"
-  type="section"
->
-  <Button
-    mode="white"
-    size="s"
-  >
-    Перейти
-  </Button>
-</Banner>
-    </main>
-  </>
+      <main className="p-1">
+        <Banner
+          type="section"
+          header="Изучить меню"
+          subheader="Карточки блюд с возможностью задать вопрос AI-помощнику"
+          background={
+            <div className="absolute inset-0 overflow-hidden rounded-xl">
+              <Image
+                src="/finch-dish.jpg"
+                alt="Finch dish"
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
+          }
+        >
+          <Button mode="outline" size="s">
+            Перейти
+          </Button>
+        </Banner>
+      </main>
+    </>
   );
 }
