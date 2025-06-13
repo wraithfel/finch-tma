@@ -18,13 +18,14 @@ export default function Page() {
   }
 
   return (
-    <main className="p-4">
+    <>
       <Header
         logoUrl="/logo-finch.svg"
         avatarUrl={userData.photo_url || ''}
         firstName={userData.first_name}
         theme={theme}        
       />
+       <main className="p-1">
 
       <Banner
         before={<Image size={48} />}
@@ -42,5 +43,6 @@ export default function Page() {
         </>
       </Banner>
     </main>
+  </>
   );
 }
