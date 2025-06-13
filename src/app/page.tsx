@@ -1,6 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import '@telegram-apps/telegram-ui/dist/styles.css';
+import { Banner, Button, Image } from '@telegram-apps/telegram-ui';
+import React from 'react';
 
 interface UserData {
   id: number,
@@ -46,6 +49,27 @@ export default function Page() {
       ) : (
         <div className="font-bold text-3xl text-amber-300">Loading…</div>
       )}
+
+      <Banner
+  before={<Image size={48} />}
+  callout="Urgent notification"
+  description="Start exploring TON in a new, better way"
+  header="Introducing TON Space"
+  onCloseIcon={function noRefCheck(){}}
+  type="section"
+>
+  <React.Fragment key=".0">
+    <Button size="s">
+      Try it out
+    </Button>
+    <Button
+      mode="plain"
+      size="s"
+    >
+      Maybe later
+    </Button>
+  </React.Fragment>
+</Banner>
     </main>
   );
 }
