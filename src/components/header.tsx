@@ -19,7 +19,6 @@ export default function Header({
 }: HeaderProps) {
   return (
     <header
-      /** плавная тень + тонкая нижняя рамка акцент-цветом */
       className="flex items-center justify-between px-4 py-3 shadow-sm"
       style={{
         backgroundColor: theme.bg_color,
@@ -32,8 +31,8 @@ export default function Header({
         src={logoUrl}
         alt="Finch logo"
         priority
-        width={36}
-        height={36}
+        width={56}
+        height={56}
         className="select-none"
       />
 
