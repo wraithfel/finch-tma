@@ -7,9 +7,7 @@ import { useTelegramUser } from '@/lib/hooks/useTelegramUser';
 import Header from '@/components/header';
 
 export default function Page() {
-  // Передаём в хук только UserData,
-  // avatarUrl он сам рассчитывает и отдаёт в результате
-  const { userData, avatarUrl } = useTelegramUser();
+  const { userData } = useTelegramUser();
 
   if (!userData) {
     return (
@@ -22,8 +20,8 @@ export default function Page() {
   return (
     <main className="p-4">
       <Header
-        logoUrl="/logo-finch.svg"         
-        avatarUrl={avatarUrl}
+        logoUrl="/logo-finch.svg"
+        avatarUrl={userData.photo_url || ''}
         firstName={userData.first_name}
       />
 

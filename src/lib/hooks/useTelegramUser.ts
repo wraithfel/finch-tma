@@ -5,37 +5,26 @@ import type { UserData } from '../types/user';
 
 export function useTelegramUser() {
   const [userData, setUserData] = useState<UserData | null>(null);
-  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
 
   useEffect(() => {
-    let cleanup: (() => void) | undefined;
+    let offThemeChange: (() => void) | undefined;
 
     (async () => {
       const { default: WebApp } = await import('@twa-dev/sdk');
       WebApp.ready();
-      WebApp.onEvent('themeChanged', () => console.log('Theme changed'));
 
-      const user = WebApp.initDataUnsafe?.user as UserData || null;
-      setUserData(user);
+      const onThemeChange = () => console.log('Theme changed');
+      WebApp.onEvent('themeChanged', onThemeChange);
+      offThemeChange = () => WebApp.offEvent?.('themeChanged', onThemeChange);
 
-      cleanup = () => WebApp.offEvent?.('themeChanged', () => {});
+      const rawUser = WebApp.initDataUnsafe.user as UserData | null;
+      setUserData(rawUser);
     })();
 
-    return () => cleanup?.();
+    return () => {
+      offThemeChange?.();
+    };
   }, []);
 
-  useEffect(() => {
-    if (!userData) return;
-    fetch(`/api/avatar?user_id=${userData.id}`)
-      .then(res => {
-        if (res.redirected) {
-          setAvatarUrl(res.url);
-        } else {
-          return res.json().then(data => setAvatarUrl(data.photoUrl));
-        }
-      })
-      .catch(console.error);
-  }, [userData]);
-
-  return { userData, avatarUrl };
+  return { userData };
 }
