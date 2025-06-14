@@ -1,12 +1,10 @@
+import "@/lib/utils/prepareTelegramEnv";
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
 import { AppRoot } from "@telegram-apps/telegram-ui";
 import TelegramProvider from '@/app/TelegramProvider';
-import { init } from '@telegram-apps/sdk-react';
-
-init()
 
 const nunito = Nunito({
   variable: "--font-nunito",

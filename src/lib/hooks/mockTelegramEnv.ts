@@ -4,7 +4,6 @@ import { mockTelegramEnv, isTMA, emitEvent } from '@telegram-apps/sdk-react';
 
 export async function enableTelegramMock(): Promise<void> {
   if (process.env.NODE_ENV !== 'development') return;
-
   if (await isTMA('complete')) return;
 
   const themeParams = {
@@ -25,37 +24,39 @@ export async function enableTelegramMock(): Promise<void> {
 
   const noInsets = { top: 0, right: 0, bottom: 0, left: 0 } as const;
 
+  const launchParams = new URLSearchParams();
+  launchParams.set(
+    'tgWebAppData',
+    new URLSearchParams([
+      ['auth_date', `${Math.floor(Date.now() / 1000)}`],
+      ['hash', 'mocked-hash'],
+      ['user', JSON.stringify({ id: 42, first_name: 'Dev' })],
+    ]).toString()
+  );
+  launchParams.set('tgWebAppVersion', '8.4');
+  launchParams.set('tgWebAppPlatform', 'tdesktop');
+  launchParams.set('tgWebAppThemeParams', JSON.stringify(themeParams));
+
   mockTelegramEnv({
-    launchParams: new URLSearchParams([
-      ['tgWebAppData', new URLSearchParams([
-        ['auth_date', `${Math.floor(Date.now() / 1000)}`],
-        ['hash', 'mocked-hash'],
-        ['user', JSON.stringify({ id: 42, first_name: 'Dev' })],
-      ]).toString()],
-      ['tgWebAppVersion', '8.4'],
-      ['tgWebAppPlatform', 'tdesktop'],
-      ['tgWebAppThemeParams', JSON.stringify(themeParams)],
-    ]),
+    launchParams,
     onEvent(e) {
       if (e[0] === 'web_app_request_theme') {
-        return emitEvent('theme_changed', { theme_params: themeParams });
+        emitEvent('theme_changed', { theme_params: themeParams });
       }
       if (e[0] === 'web_app_request_viewport') {
-        return emitEvent('viewport_changed', {
+        emitEvent('viewport_changed', {
           height: window.innerHeight,
-          width:  window.innerWidth,
+          width: window.innerWidth,
           is_expanded: true,
           is_state_stable: true,
         });
       }
       if (e[0] === 'web_app_request_safe_area') {
-        return emitEvent('safe_area_changed', noInsets);
+        emitEvent('safe_area_changed', noInsets);
       }
       if (e[0] === 'web_app_request_content_safe_area') {
-        return emitEvent('content_safe_area_changed', noInsets);
+        emitEvent('content_safe_area_changed', noInsets);
       }
     },
   });
-
-  console.info('🔧 Telegram-окружение замокано (dev-режим)');
 }

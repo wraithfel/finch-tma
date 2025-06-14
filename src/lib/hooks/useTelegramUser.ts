@@ -1,23 +1,30 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+import { retrieveLaunchParams, type LaunchParams } from '@telegram-apps/sdk';
 import {
-  useLaunchParams,
-  useSignal,
   themeParams,
   themeParamsState,
+  useSignal,
 } from '@telegram-apps/sdk-react';
-
 import type { UserData } from '@/lib/types/user';
 import type { ThemeParams } from '@/lib/types/theme';
 import { toHex } from '../utils/converters';
-
 
 export function useTelegramUser(): {
   userData: UserData | null;
   theme: ThemeParams | null;
 } {
-  const launch = useLaunchParams(true);
-  const user = launch?.tgWebAppData?.user ?? null;
+
+  if (typeof window === 'undefined') return { userData: null, theme: null };
+
+  const [launch] = useState<LaunchParams | null>(() => {
+    try {
+      return retrieveLaunchParams(); 
+    } catch {
+      return null;
+    }
+  });
 
   if (themeParams.mountSync.isAvailable() && !themeParams.isMounted()) {
     themeParams.mountSync();
@@ -43,7 +50,7 @@ export function useTelegramUser(): {
     : null;
 
   return {
-    userData: user as UserData | null,
+    userData: launch?.tgWebAppData?.user as UserData | null,
     theme,
   };
 }
