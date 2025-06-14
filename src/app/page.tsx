@@ -62,8 +62,10 @@ const sections = [
 
 export default function HomePage() {
 
-const [mounted, setMounted] = useState(false);
-useEffect(() => { setMounted(true); }, []);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => 
+      { setMounted(true); }
+  ,[]);
 
   const { userData, theme } = useTelegramUser();
   const router = useRouter();
