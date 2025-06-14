@@ -111,8 +111,8 @@ export default function HomePage() {
               <Button
                 mode="outline"
                 size="s"
-                className="backdrop-blur-lg font-semibold uppercase tracking-wide !h-8 !px-4 shadow-md"
-                style={{ borderWidth: '2px', borderColor: 'currentColor' }}
+                className="backdrop-blur-lg font-semibold uppercase tracking-wide !h-8 !px-4 shadow-md text-white"
+                style={{ borderWidth: '2px', borderColor: 'white', color: 'white' }}
                 onClick={() => router.push(section.onClickRoute)}
               >
                 {section.buttonText}
