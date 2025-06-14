@@ -1,37 +1,23 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import type { UserData } from '../types/user';
-import type { ThemeParams } from '../types/theme';
+import { useLaunchParams, useSignal, themeParams } from '@telegram-apps/sdk-react';
+import type { UserData } from '@/lib/types/user';
+import type { ThemeParams } from '@/lib/types/theme';
 
-interface UseTelegramUserResult {
+export function useTelegramUser(): {
   userData: UserData | null;
   theme: ThemeParams | null;
-}
+} {
+  // true – чтобы получить в camelCase (authDate, queryId и т.д.)
+  const launch = useLaunchParams(true);
+  // на v3 данные юзера лежат в launch.tgWebAppData.user
+  const user = launch?.tgWebAppData?.user ?? null;
 
-export function useTelegramUser(): UseTelegramUserResult {
-  const [userData, setUserData] = useState<UserData | null>(null);
-  const [theme,   setTheme]   = useState<ThemeParams | null>(null);
+  // themeParams – это сигнал, подписываемся на него
+  const theme = useSignal(themeParams);
 
-  useEffect(() => {
-    let cleanup: (() => void) | undefined;
-
-    (async () => {
-      const { default: WebApp } = await import('@twa-dev/sdk');
-      WebApp.ready();
-
-      setUserData(WebApp.initDataUnsafe?.user as UserData);
-      setTheme(WebApp.themeParams as ThemeParams);
-
-      const onThemeChange = () => {
-        setTheme(WebApp.themeParams as ThemeParams);
-      };
-      WebApp.onEvent('themeChanged', onThemeChange);
-      cleanup = () => WebApp.offEvent?.('themeChanged', onThemeChange);
-    })();
-
-    return () => cleanup?.();
-  }, []);
-
-  return { userData, theme };
+  return {
+    userData: user as UserData | null,
+    theme: theme as ThemeParams | null,
+  };
 }

@@ -3,6 +3,10 @@ import { Nunito } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
 import { AppRoot } from "@telegram-apps/telegram-ui";
+import TelegramProvider from '@/app/TelegramProvider';
+import { init } from '@telegram-apps/sdk-react';
+
+init()
 
 const nunito = Nunito({
   variable: "--font-nunito",
@@ -28,7 +32,9 @@ export default function RootLayout({
         />
       </head>
       <body className={`${nunito.variable} antialiased`}>
-        <AppRoot>{children}</AppRoot>
+        <TelegramProvider>
+              <AppRoot>{children}</AppRoot>
+        </TelegramProvider>
       </body>
     </html>
   );

@@ -1,1 +1,1 @@
-export type ThemeParams = import('@twa-dev/types').ThemeParams;
+export type ThemeParams = import('@telegram-apps/sdk').ThemeParams;
