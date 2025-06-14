@@ -1,4 +1,4 @@
-'use client';       
+'use client';
 
 import React from 'react';
 import Image from 'next/image';
@@ -22,7 +22,7 @@ export default function Header({
     <header
       className="flex items-center justify-between h-20 px-3"
       style={{
-        backgroundColor: theme.bg_color,
+        backgroundColor: theme.header_bg_color ?? theme.bg_color,
         borderBottom: `1px solid ${theme.hint_color}40`,
       }}
     >

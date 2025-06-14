@@ -10,9 +10,11 @@ export default function TelegramProvider({ children }: { children: React.ReactNo
       if (process.env.NODE_ENV === 'development') {
         await enableTelegramMock();
       }
+
       await init();
       themeParams.mountSync();
-      window.Telegram?.WebApp?.onEvent?.('theme_changed', () => {
+
+      window.Telegram?.WebApp?.onEvent?.('themeChanged', () => {
         themeParams.mountSync();
       });
     })();
