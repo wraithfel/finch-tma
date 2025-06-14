@@ -1,3 +1,5 @@
+'use client'
+
 import '@telegram-apps/telegram-ui/dist/styles.css';
 import { Banner, Button } from '@telegram-apps/telegram-ui';
 import React from 'react';
