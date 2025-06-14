@@ -6,10 +6,13 @@ import { enableTelegramMock } from '@/lib/hooks/mockTelegramEnv';
 
 export default function TelegramProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    enableTelegramMock().then(() => {
+    const initializeApp = async () => {
+      await enableTelegramMock();
       init();
-    });
-   }, []);
+    };
+    
+    initializeApp();
+  }, []);
 
   return <>{children}</>;
 }

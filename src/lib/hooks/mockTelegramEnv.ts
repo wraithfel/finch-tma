@@ -2,9 +2,13 @@
 
 import { mockTelegramEnv, isTMA, emitEvent } from '@telegram-apps/sdk-react';
 
+let isMockEnabled = false;
+
 export async function enableTelegramMock(): Promise<void> {
-  if (process.env.NODE_ENV !== 'development') return;
+  if (isMockEnabled || process.env.NODE_ENV !== 'development') return;
   if (await isTMA('complete')) return;
+  
+  isMockEnabled = true;
 
   const themeParams = {
     accent_text_color: '#6ab2f2',
@@ -24,15 +28,15 @@ export async function enableTelegramMock(): Promise<void> {
 
   const noInsets = { top: 0, right: 0, bottom: 0, left: 0 } as const;
 
+  // Формируем tgWebAppData как строку запроса
+  const tgWebAppData = new URLSearchParams([
+    ['auth_date', `${Math.floor(Date.now() / 1000)}`],
+    ['hash', 'mocked-hash'],
+    ['user', JSON.stringify({ id: 42, first_name: 'Dev' })],
+  ]).toString();
+
   const launchParams = new URLSearchParams();
-  launchParams.set(
-    'tgWebAppData',
-    new URLSearchParams([
-      ['auth_date', `${Math.floor(Date.now() / 1000)}`],
-      ['hash', 'mocked-hash'],
-      ['user', JSON.stringify({ id: 42, first_name: 'Dev' })],
-    ]).toString()
-  );
+  launchParams.set('tgWebAppData', tgWebAppData);
   launchParams.set('tgWebAppVersion', '8.4');
   launchParams.set('tgWebAppPlatform', 'tdesktop');
   launchParams.set('tgWebAppThemeParams', JSON.stringify(themeParams));
