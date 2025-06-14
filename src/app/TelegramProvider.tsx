@@ -12,7 +12,7 @@ export default function TelegramProvider({ children }: { children: React.ReactNo
       if (themeParams.mountSync.isAvailable() && !themeParams.isMounted()) {
         themeParams.mountSync();
       }
-      const tg = (window as any).Telegram?.WebApp;
+      const tg = window.Telegram?.WebApp;
       if (tg?.onEvent) {
         tg.onEvent('theme_changed', () => {
           themeParams.mountSync();
