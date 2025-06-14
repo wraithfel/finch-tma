@@ -64,7 +64,7 @@ export async function enableTelegramMock(): Promise<void> {
     onEvent([evt]) {
       switch (evt) {
         case 'web_app_request_theme':
-          emitEvent('themeChanged', { theme_params: themeParams });
+          emitEvent('theme_changed', { theme_params: themeParams });
           break;
         case 'web_app_request_viewport':
           emitEvent('viewport_changed', {

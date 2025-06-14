@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { retrieveLaunchParams, type LaunchParams } from '@telegram-apps/sdk';
-import { themeParams, themeParamsState, useSignal } from '@telegram-apps/sdk-react';
+import { themeParamsState, useSignal } from '@telegram-apps/sdk-react';
 import type { UserData } from '@/lib/types/user';
 import type { ThemeParams } from '@/lib/types/theme';
 import { toHex } from '../utils/converters';
@@ -22,13 +22,6 @@ export function useTelegramUser(): {
     } catch {
       setLaunch(null);
     }
-  }, []);
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    (async () => {
-      await themeParams.mount();
-    })();
   }, []);
 
   const theme: ThemeParams | null = palette
