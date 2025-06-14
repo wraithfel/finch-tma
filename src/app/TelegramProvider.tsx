@@ -1,6 +1,6 @@
 'use client';
 import { useEffect } from 'react';
-import { init, themeParams } from '@telegram-apps/sdk-react';
+import { init, themeParams, bindThemeParamsCssVars } from '@telegram-apps/sdk-react';
 import { enableTelegramMock } from '@/lib/hooks/mockTelegramEnv';
 
 export default function TelegramProvider({ children }: { children: React.ReactNode }) {
@@ -11,10 +11,12 @@ export default function TelegramProvider({ children }: { children: React.ReactNo
       }
       await init();
       themeParams.mountSync();
+      bindThemeParamsCssVars();
       const tg = window.Telegram?.WebApp;
       if (tg?.onEvent) {
         const handler = () => {
           themeParams.mountSync();
+          bindThemeParamsCssVars();
         };
         tg.onEvent('theme_changed', handler);
       }
@@ -23,4 +25,3 @@ export default function TelegramProvider({ children }: { children: React.ReactNo
 
   return <>{children}</>;
 }
-
