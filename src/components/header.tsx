@@ -1,5 +1,6 @@
-'use client';
+'use client';       
 
+import React from 'react';
 import Image from 'next/image';
 import { Avatar } from '@telegram-apps/telegram-ui';
 import type { ThemeParams } from '@/lib/types/theme';
