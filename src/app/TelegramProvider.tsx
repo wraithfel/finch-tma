@@ -1,10 +1,11 @@
 'use client';
-import { useEffect } from 'react';
+
+import { useLayoutEffect } from 'react';
 import { init, themeParams, bindThemeParamsCssVars } from '@telegram-apps/sdk-react';
 import { enableTelegramMock } from '@/lib/hooks/mockTelegramEnv';
 
 export default function TelegramProvider({ children }: { children: React.ReactNode }) {
-  useEffect(() => {
+  useLayoutEffect(() => {
     (async () => {
       if (process.env.NODE_ENV === 'development') {
         await enableTelegramMock();
@@ -12,14 +13,14 @@ export default function TelegramProvider({ children }: { children: React.ReactNo
       await init();
       themeParams.mountSync();
       bindThemeParamsCssVars();
+
       const tg = window.Telegram?.WebApp;
-      if (tg?.onEvent) {
-        const handler = () => {
-          themeParams.mountSync();
-          bindThemeParamsCssVars();
-        };
-        tg.onEvent('theme_changed', handler);
-      }
+      if (!tg?.onEvent) return;
+      const handler = () => {
+        themeParams.mountSync();
+        bindThemeParamsCssVars();
+      };
+      ['theme_changed', 'themeChanged'].forEach(evt => tg.onEvent(evt, handler));
     })();
   }, []);
 

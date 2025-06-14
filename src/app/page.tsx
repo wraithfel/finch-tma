@@ -84,7 +84,6 @@ export default function HomePage() {
         logoUrl="/logo-finch.svg"
         avatarUrl={userData.photo_url || ''}
         firstName={userData.first_name}
-        theme={theme}
       />
 
       <main className="flex flex-col gap-5 p-4 pb-8">
