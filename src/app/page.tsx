@@ -3,7 +3,7 @@
 import '@telegram-apps/telegram-ui/dist/styles.css';
 import { Banner, Button } from '@telegram-apps/telegram-ui';
 import { motion } from 'framer-motion';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useTelegramUser } from '@/lib/hooks/useTelegramUser';
 import Header from '@/components/header';
@@ -61,10 +61,14 @@ const sections = [
 ] as const;
 
 export default function HomePage() {
+
+const [mounted, setMounted] = useState(false);
+useEffect(() => { setMounted(true); }, []);
+
   const { userData, theme } = useTelegramUser();
   const router = useRouter();
 
-  if (!userData || !theme) {
+  if (!mounted || !userData || !theme) {
     return (
       <div className="flex h-dvh items-center justify-center text-3xl font-bold text-cyan-300">
         Loading…

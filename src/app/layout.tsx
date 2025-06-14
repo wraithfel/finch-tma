@@ -1,18 +1,18 @@
-import type { Metadata } from "next";
-import { Nunito } from "next/font/google";
-import "./globals.css";
-import Script from "next/script";
-import { AppRoot } from "@telegram-apps/telegram-ui";
+import type { Metadata } from 'next';
+import { Nunito } from 'next/font/google';
+import './globals.css';
+import Script from 'next/script';
+import { AppRoot } from '@telegram-apps/telegram-ui';
 import TelegramProvider from '@/app/TelegramProvider';
 
 const nunito = Nunito({
-  variable: "--font-nunito",
-  subsets: ["latin"],
+  variable: '--font-nunito',
+  subsets: ['latin'],
 });
 
 export const metadata: Metadata = {
-  title: "Telegram Mini App for Finch",
-  description: "TMA for cafe staff training based on AI",
+  title: 'Telegram Mini App for Finch',
+  description: 'TMA for cafe staff training based on AI',
 };
 
 export default function RootLayout({
@@ -30,7 +30,7 @@ export default function RootLayout({
       </head>
       <body className={`${nunito.variable} antialiased`}>
         <TelegramProvider>
-              <AppRoot>{children}</AppRoot>
+          <AppRoot>{children}</AppRoot>
         </TelegramProvider>
       </body>
     </html>

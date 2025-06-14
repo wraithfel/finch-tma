@@ -1,12 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { retrieveLaunchParams, type LaunchParams } from '@telegram-apps/sdk';
-import {
-  themeParams,
-  themeParamsState,
-  useSignal,
-} from '@telegram-apps/sdk-react';
+import { themeParams, themeParamsState, useSignal } from '@telegram-apps/sdk-react';
 import type { UserData } from '@/lib/types/user';
 import type { ThemeParams } from '@/lib/types/theme';
 import { toHex } from '../utils/converters';
@@ -16,20 +12,26 @@ export function useTelegramUser(): {
   theme: ThemeParams | null;
 } {
 
-  if (typeof window === 'undefined') return { userData: null, theme: null };
+  const [launch, setLaunch] = useState<LaunchParams | null>(null);
 
-  const [launch] = useState<LaunchParams | null>(() => {
-    try {
-      return retrieveLaunchParams(); 
-    } catch {
-      return null;
-    }
-  });
-
-  if (themeParams.mountSync.isAvailable() && !themeParams.isMounted()) {
-    themeParams.mountSync();
-  }
   const palette = useSignal(themeParamsState);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      const params = retrieveLaunchParams();
+      setLaunch(params);
+    } catch {
+      setLaunch(null);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (themeParams.mountSync.isAvailable() && !themeParams.isMounted()) {
+      themeParams.mountSync();
+    }
+  }, []);
 
   const theme: ThemeParams | null = palette
     ? {
@@ -50,7 +52,7 @@ export function useTelegramUser(): {
     : null;
 
   return {
-    userData: launch?.tgWebAppData?.user as UserData | null,
+    userData: (launch?.tgWebAppData?.user ?? null) as UserData | null,
     theme,
   };
 }
