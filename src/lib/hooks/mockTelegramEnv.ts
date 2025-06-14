@@ -27,27 +27,31 @@ export async function enableTelegramMock(): Promise<void> {
     text_color: '#f5f5f5',
   } as const;
 
-  // Собираем именно тот набор полей внутри tgWebAppData, который нужен
   const inner = new URLSearchParams([
-    ['user', JSON.stringify({
-      id: 279058397,
-      first_name: 'Vladislav',
-      last_name: 'Kibenko',
-      username: 'vdkfrost',
-      language_code: 'ru',
-      is_premium: true,
-      allows_write_to_pm: true,
-      photo_url:
-        'https://t.me/i/userpic/320/4FPEE4tmP3ATHa57u6MqTDih13LTOiMoKoLDRG4PnSA.svg',
-    })],
+    [
+      'user',
+      JSON.stringify({
+        id: 279058397,
+        first_name: 'Vladislav',
+        last_name: 'Kibenko',
+        username: 'vdkfrost',
+        language_code: 'ru',
+        is_premium: true,
+        allows_write_to_pm: true,
+        photo_url:
+          'https://t.me/i/userpic/320/4FPEE4tmP3ATHa57u6MqTDih13LTOiMoKoLDRG4PnSA.svg',
+      }),
+    ],
     ['chat_instance', '-9019086117643313246'],
     ['chat_type', 'sender'],
     ['auth_date', '1736409902'],
-    ['signature', 'FNWSy6kv5n4kkmYYmfTbrgRtswTvwXgHTRWBVjp-YOv2srtMFSYCWZ9nGr_PohWZeWcooFo_oQgsnTJge3JdBA'],
+    [
+      'signature',
+      'FNWSy6kv5n4kkmYYmfTbrgRtswTvwXgHTRWBVjp-YOv2srtMFSYCWZ9nGr_PohWZeWcooFo_oQgsnTJge3JdBA',
+    ],
     ['hash', '4c710b1d446dd4fd301c0efbf7c31627eca193a2e657754c9e0612cb1eb71d90'],
   ]).toString();
 
-  // Собираем итоговую строку launchParams
   const launchParams = new URLSearchParams({
     tgWebAppData: inner,
     tgWebAppVersion: '8.0',
@@ -60,7 +64,7 @@ export async function enableTelegramMock(): Promise<void> {
     onEvent([evt]) {
       switch (evt) {
         case 'web_app_request_theme':
-          emitEvent('theme_changed', { theme_params: themeParams });
+          emitEvent('themeChanged', { theme_params: themeParams });
           break;
         case 'web_app_request_viewport':
           emitEvent('viewport_changed', {

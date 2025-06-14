@@ -6,20 +6,16 @@ import { enableTelegramMock } from '@/lib/hooks/mockTelegramEnv';
 
 export default function TelegramProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    const initializeApp = async () => {
-      await enableTelegramMock();
-      init();
-      if (themeParams.mountSync.isAvailable() && !themeParams.isMounted()) {
+    (async () => {
+      if (process.env.NODE_ENV === 'development') {
+        await enableTelegramMock();
+      }
+      await init();
+      await themeParams.mount();
+      window.Telegram?.WebApp?.onEvent?.('themeChanged', () => {
         themeParams.mountSync();
-      }
-      const tg = window.Telegram?.WebApp;
-      if (tg?.onEvent) {
-        tg.onEvent('theme_changed', () => {
-          themeParams.mountSync();
-        });
-      }
-    };
-    initializeApp();
+      });
+    })();
   }, []);
 
   return <>{children}</>;

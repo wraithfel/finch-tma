@@ -11,9 +11,7 @@ export function useTelegramUser(): {
   userData: UserData | null;
   theme: ThemeParams | null;
 } {
-
   const [launch, setLaunch] = useState<LaunchParams | null>(null);
-
   const palette = useSignal(themeParamsState);
 
   useEffect(() => {
@@ -28,9 +26,9 @@ export function useTelegramUser(): {
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    if (themeParams.mountSync.isAvailable() && !themeParams.isMounted()) {
-      themeParams.mountSync();
-    }
+    (async () => {
+      await themeParams.mount();
+    })();
   }, []);
 
   const theme: ThemeParams | null = palette
