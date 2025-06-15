@@ -57,7 +57,7 @@ export default function SectionCard({ section, index }: SectionCardProps) {
           size="s"
           className="
             backdrop-blur-lg font-semibold tracking-wide
-            !h-8 !px-4 shadow-md !text-white !border-2 border-white
+            !h-8 !px-4 !mt-5 shadow-md !text-white !border-2 border-white
           "
           onClick={() => router.push(section.onClickRoute)}
         >
