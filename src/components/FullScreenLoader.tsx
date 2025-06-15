@@ -1,11 +1,18 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 
 export default function FullScreenLoader() {
   return (
     <div className="flex h-dvh items-center justify-center bg-black">
-      <img src="/my-loader.svg" alt="Loading..." />
+      <Image
+        src="/my-loader.svg"
+        alt="Loading..."
+        width={80}
+        height={80}
+        priority
+      />
     </div>
   );
 }
