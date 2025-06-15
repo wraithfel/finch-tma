@@ -4,7 +4,6 @@ import React from 'react';
 import { Card } from '@telegram-apps/telegram-ui';
 import { CardChip } from '@telegram-apps/telegram-ui/dist/components/Blocks/Card/components/CardChip/CardChip';
 import { CardCell } from '@telegram-apps/telegram-ui/dist/components/Blocks/Card/components/CardCell/CardCell';
-
 export interface MenuCardProps {
   chipText: string;
   imageSrc: string;
@@ -22,16 +21,15 @@ export default function MenuCard({
 }: MenuCardProps) {
   return (
     <Card
-      className="relative overflow-hidden rounded-[28px] shadow-xl ring-2 ring-[var(--tg-theme-accent-text-color)]/40 backdrop-blur-[2px] transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] active:scale-100"
+      className="relative overflow-hidden rounded-2xl shadow-lg transition-transform duration-200 hover:scale-105"
       style={{ backgroundColor: 'var(--tg-theme-section-bg-color)' }}
     >
       <CardChip
         readOnly
-        className="absolute z-10 top-3 left-3 rounded-full px-3 py-1 text-xs font-semibold shadow-lg backdrop-blur-sm"
+        className="absolute top-3 left-3 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium shadow-sm"
         style={{
-          background:
-            'linear-gradient(135deg, var(--tg-theme-button-color) 0%, var(--tg-theme-accent-text-color) 100%)',
-          color: 'var(--tg-theme-button-text-color)'
+          backgroundColor: 'var(--tg-theme-button-color)',
+          color: 'var(--tg-theme-button-text-color)',
         }}
       >
         {chipText}
@@ -51,17 +49,14 @@ export default function MenuCard({
       <CardCell
         readOnly
         className="px-4 py-3"
-        style={{ background: 'var(--tg-theme-secondary-bg-color)' }}
+        style={{ backgroundColor: 'var(--tg-theme-secondary-bg-color)' }}
       >
         <div className="flex flex-col">
           <span className="font-bold text-lg" style={{ color: 'var(--tg-theme-text-color)' }}>
             {title}
           </span>
           {subtitle && (
-            <span
-              className="mt-1 text-sm"
-              style={{ color: 'var(--tg-theme-text-color)', opacity: 0.6 }}
-            >
+            <span className="mt-1 text-sm" style={{ color: 'var(--tg-theme-text-color)', opacity: 0.6 }}>
               {subtitle}
             </span>
           )}
@@ -70,3 +65,4 @@ export default function MenuCard({
     </Card>
   );
 }
+
