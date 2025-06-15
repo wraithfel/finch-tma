@@ -12,6 +12,7 @@ export default function FullScreenLoader() {
         width={80}
         height={80}
         priority
+        className="animate-spin"
       />
     </div>
   );
