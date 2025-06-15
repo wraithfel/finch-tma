@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import '@telegram-apps/telegram-ui/dist/styles.css';
 
 import Header from '@/components/Header';
 import FullScreenLoader from '@/components/FullScreenLoader';
