@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { Card } from '@telegram-apps/telegram-ui';
-import { CardChip } from '@telegram-apps/telegram-ui/dist/components/Blocks/Card/components/CardChip/CardChip';
 import { CardCell } from '@telegram-apps/telegram-ui/dist/components/Blocks/Card/components/CardCell/CardCell';
+import { CardChip } from '@telegram-apps/telegram-ui/dist/components/Blocks/Card/components/CardChip/CardChip';
 
 export interface MenuCardProps {
   chipText: string;
@@ -22,12 +22,12 @@ export default function MenuCard({
 }: MenuCardProps) {
   return (
     <Card
-      className="relative overflow-hidden rounded-2xl shadow-lg transition-transform duration-200 hover:scale-105"
+      className="relative overflow-hidden rounded-2xl shadow-lg transition-transform duration-200 hover:scale-105 border border-[var(--tg-theme-hint-color)]"
       style={{ backgroundColor: 'var(--tg-theme-section-bg-color)' }}
     >
       <CardChip
         readOnly
-        className="absolute top-3 left-3 inline-flex items-center rounded-2xl px-2.5 py-0.5 text-xs font-medium shadow-sm"
+        className="absolute top-3 left-3 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium shadow-sm"
         style={{
           backgroundColor: 'var(--tg-theme-button-color)',
           color: 'var(--tg-theme-button-text-color)',
@@ -40,7 +40,7 @@ export default function MenuCard({
       <img
         src={imageSrc}
         alt={altText}
-        style={{ display: 'block', width: '100%', height: 260, objectFit: 'cover' }}
+        className="block w-full h-[260px] object-cover"
       />
 
       <CardCell
