@@ -47,4 +47,4 @@ export const sections = [
     buttonText: 'Открыть',
     onClickRoute: '/profile',
   },
-] as const;
+]
