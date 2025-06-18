@@ -583,7 +583,7 @@ export const menuData = {
         {
           id: 'classic_pancakes_berries',
           name: 'Классические панкейки с ягодами',
-          shortDescription: 'Два панкейка с ягодным конфи и сливочным соусом',
+          shortDescription: 'Панкейки с ягодным конфи и сливочным соусом',
           fullDescription:
             'Два воздушных панкейка со сливочным соусом, ягодами (клубника, голубика) и малиновым конфи.',
           ingredients: [
@@ -602,7 +602,7 @@ export const menuData = {
         {
           id: 'blueberry_pancakes',
           name: 'Черничные панкейки с голубикой',
-          shortDescription: 'Панкейки с черничным конфи и свежей голубикой',
+          shortDescription: 'Панкейки с черничным конфи и голубикой',
           fullDescription:
             'Стопка панкейков с черничным конфи и голубикой, посыпанные сахарной пудрой.',
           ingredients: [
@@ -620,7 +620,7 @@ export const menuData = {
         {
           id: 'cherry_pancakes_hot_chocolate',
           name: 'Панкейки с вишней и горячим шоколадом',
-          shortDescription: 'Панкейки с вишнёвым конфи и тёплым шоколадом',
+          shortDescription: 'Панкейки с вишнёвым конфи и шоколадом',
           fullDescription:
             'Панкейки с вишнёвым конфи, горячим шоколадным соусом и взрывной карамелью.',
           ingredients: [
@@ -654,7 +654,7 @@ export const menuData = {
         {
           id: 'chicken_ptitim',
           name: 'Куриная грудка с пастой птитим',
-          shortDescription: 'Филе курицы с кремовой пастой птитим и вешенками',
+          shortDescription: 'Филе курицы с кремовой пастой птитим',
           fullDescription:
             'Слегка обжаренная куриная грудка, запечённая с пастой птитим в сливках и вешенках, приправленная трюфельным маслом.',
           ingredients: [
@@ -673,7 +673,7 @@ export const menuData = {
         {
           id: 'pasta_casaracche',
           name: 'Паста казаречче',
-          shortDescription: 'Короткие макароны с тушёной говядиной и демигласс',
+          shortDescription: 'Макароны с тушёной говядиной и демигласс',
           fullDescription:
             'Паста казаречче с тушёной говядиной в демигласс-соусе, подается с базиликом и пармезаном.',
           ingredients: [
