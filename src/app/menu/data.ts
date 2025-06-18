@@ -604,7 +604,7 @@ export const menuData = {
     },
     {
       key: 'desserts',
-      name: 'Десерты FINCHxBB',
+      name: 'Десерты',
       items: [
         {
           id: 'pavlova_raspberry_passionfruit',
