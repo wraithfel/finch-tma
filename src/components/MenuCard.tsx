@@ -37,10 +37,11 @@ export default function MenuCard({
         {chipText}
       </CardChip>
 
-      <img
-        src={imageSrc}
-        alt={altText}
-        className="block w-full h-[260px] object-cover"
+      <div
+        role="img"
+        aria-label={altText}
+        className="w-full aspect-[4/3] bg-center bg-cover"
+        style={{ backgroundImage: `url(${imageSrc})` }}
       />
 
       <CardCell
@@ -49,11 +50,17 @@ export default function MenuCard({
         style={{ backgroundColor: 'var(--tg-theme-secondary-bg-color)' }}
       >
         <div className="flex flex-col">
-          <span className="font-bold text-lg" style={{ color: 'var(--tg-theme-text-color)' }}>
+          <span
+            className="font-bold text-lg"
+            style={{ color: 'var(--tg-theme-text-color)' }}
+          >
             {title}
           </span>
           {subtitle && (
-            <span className="mt-1 text-sm" style={{ color: 'var(--tg-theme-text-color)', opacity: 0.6 }}>
+            <span
+              className="mt-1 text-sm"
+              style={{ color: 'var(--tg-theme-text-color)', opacity: 0.6 }}
+            >
               {subtitle}
             </span>
           )}
