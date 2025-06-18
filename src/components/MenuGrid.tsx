@@ -1,5 +1,3 @@
-'use client'
-
 import React from 'react'
 import type { MenuItem } from '@/lib/types/menu'
 import MenuCard from '@/components/MenuCard'
@@ -10,6 +8,7 @@ export function MenuGrid({ items }: { items: MenuItem[] }) {
       {items.map((item) => (
         <MenuCard
           key={item.id}
+          id={item.id}
           chipText={item.chip ?? '220 ₽'}
           imageSrc={item.image}
           altText={item.name}
@@ -20,3 +19,4 @@ export function MenuGrid({ items }: { items: MenuItem[] }) {
     </div>
   )
 }
+
