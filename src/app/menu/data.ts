@@ -137,8 +137,8 @@ export const menuData = {
           ],
           method:
             'Сырники обжариваются до золотистого цвета, сервируются с конфи и крамблом.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '220 ₽'
+          image: '/finch-dish.jpg',
+          chip: '550 ₽'
         },
         {
           id: 'mini_syrniki',
@@ -156,8 +156,8 @@ export const menuData = {
           ],
           method:
             'Сырники-шарики обжариваются, украшены сливочным соусом и фисташками.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '220 ₽'
+          image: '/menu/syrniki/mini_syr.jpeg',
+          chip: '620 ₽'
         },
         {
           id: 'syrniki_classic',
@@ -173,8 +173,8 @@ export const menuData = {
             'Масло растительное'
           ],
           method: 'Сырники обжариваются до золотистой корочки.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '220 ₽'
+          image: '/menu/syrniki/classic_syr.jpeg',
+          chip: '350 ₽'
         }
       ],
       extras: [
@@ -211,8 +211,8 @@ export const menuData = {
           ],
           method:
             'Тост смазывают кремом, добавляют томаты и авокадо, украшают мятой и семенами.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
+          image: '/menu/breakfasts/avocado_tost.jpeg',
+          chip: '850 ₽'
         },
         {
           id: 'benedict_pastrami_cherry',
@@ -232,8 +232,8 @@ export const menuData = {
           ],
           method:
             'Бриошь смачивают в яйце, обжаривают, выкладывают пастрами, пашот и поливают голландезом.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
+          image: '/menu/breakfasts/ben_pastr.jpeg',
+          chip: '920 ₽'
         },
         {
           id: 'benedict_salmon',
@@ -252,8 +252,8 @@ export const menuData = {
           ],
           method:
             'Бриошь обжаривают, добавляют лосось, пашот и голландез.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
+          image: '/menu/breakfasts/ben_salmon.jpeg',
+          chip: '890 ₽'
         },
         {
           id: 'zucchini_pancakes',
@@ -275,8 +275,8 @@ export const menuData = {
           ],
           method:
             'Оладьи жарят до хрустящей корочки, подают с соусом и страчателлой.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
+          image: '/menu/breakfasts/olad_tsuki.jpeg',
+          chip: '680 ₽'
         },
         {
           id: 'shakshuka',
@@ -302,8 +302,8 @@ export const menuData = {
           ],
           method:
             'Тушат соус, добавляют яйца пашот, украшают сыром и зеленью.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
+          image: '/menu/breakfasts/shakshuka.jpeg',
+          chip: '680 ₽'
         },
         {
           id: 'green_shakshuka',
@@ -325,8 +325,8 @@ export const menuData = {
           ],
           method:
             'Готовят пюре, добавляют яйца пашот, украшают зеленью.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
+          image: '/menu/breakfasts/green_shakshuka.jpeg',
+          chip: '680 ₽'
         },
         {
           id: 'finch_breakfast_salmon',
@@ -346,12 +346,12 @@ export const menuData = {
           ],
           method:
             'Состав укладывают слоями: драник, яйца, лосось и огурцы, украшают кремом и зеленью.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
+          image: '/menu/breakfasts/salmon_dranik.jpeg',
+          chip: '850 ₽'
         },
         {
           id: 'steak_omelette',
-          name: 'Стейк со омлетом',
+          name: 'Стейк с омлетом',
           shortDescription: 'Омлет с фланк-стейком и демигласс',
           fullDescription:
             'Конверт-омлет с фланк-стейком, политый демигласс-соусом с горчицей и петрушкой.',
@@ -368,8 +368,8 @@ export const menuData = {
           ],
           method:
             'Омлет готовят с добавлением сметаны, сверху выкладывают стейк, поливают демиглассом.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
+          image: '/menu/breakfasts/steak_omlet.jpeg',
+          chip: '930 ₽'
         },
         {
           id: 'french_breakfast',
@@ -385,8 +385,8 @@ export const menuData = {
             'Масло оливковое'
           ],
           method: 'Круассан фаршируют и слегка поджаривают.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
+          image: '/menu/breakfasts/french_break.jpeg',
+          chip: '740 ₽'
         }
       ],
       extras: []
@@ -416,8 +416,8 @@ export const menuData = {
           ],
           method:
             'Все ингредиенты выкладывают на шпинат, заправляют медово-горчичным соусом, украшают семенами и зеленью.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
+          image: '/menu/salads/avocado_salad.jpeg',
+          chip: '720 ₽'
         },
         {
           id: 'salad_with_salmon',
@@ -438,8 +438,8 @@ export const menuData = {
           ],
           method:
             'Зелень смешивают с соусом, выкладывают манго-конфи и лосось, украшают луком.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
+          image: '/menu/salads/salad_salmon.jpeg',
+          chip: '850 ₽'
         },
         {
           id: 'steak_salad',
@@ -457,8 +457,8 @@ export const menuData = {
           ],
           method:
             'Стейк жарят, нарезают, подают на зелёной подушке, заливают соусом и украшают.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
+          image: '/menu/salads/steak_salad.jpeg',
+          chip: '890 ₽'
         }
       ],
       extras: []
@@ -532,8 +532,8 @@ export const menuData = {
           ],
           method:
             'Суп варят из овощей и томатов, пюрируют, подают с тостом под БлюЧизом.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
+          image: '/menu/soups/tomato_soup.jpeg',
+          chip: '510 ₽'
         },
         {
           id: 'chicken_broth',
@@ -551,8 +551,8 @@ export const menuData = {
           ],
           method:
             'В глубокую тарелку кладут зелень и тост, заливают горячим бульоном и добавляют пашот.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
+          image: '/menu/soups/chicken_soup.jpeg',
+          chip: '450 ₽'
         }
       ],
       extras: []
@@ -577,8 +577,8 @@ export const menuData = {
           ],
           method:
             'Панкейки выкладывают стопкой, поливают соусом, украшают ягодами и конфи.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
+          image: '/menu/pancakes/pan_berry.jpeg',
+          chip: '680 ₽'
         },
         {
           id: 'blueberry_pancakes',
@@ -595,8 +595,8 @@ export const menuData = {
           ],
           method:
             'Панкейки поливают конфи, украшают голубикой и посыпают пудрой.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
+          image: '/menu/pancakes/pancake_gol.jpeg',
+          chip: '670 ₽'
         },
         {
           id: 'cherry_pancakes_hot_chocolate',
@@ -614,8 +614,8 @@ export const menuData = {
           ],
           method:
             'Поливают шоколадом и вишней, посыпают карамелью и какао, украшают бутоном.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
+          image: '/menu/pancakes/pancake_vish.jpeg',
+          chip: '620 ₽'
         }
       ],
       extras: [
@@ -648,8 +648,8 @@ export const menuData = {
           ],
           method:
             'Грудку жарят и запекают, пасту тушат в сливках с грибами, подают вместе.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
+          image: '/menu/mains/ptitim.jpeg',
+          chip: '760 ₽'
         },
         {
           id: 'pasta_casaracche',
@@ -666,8 +666,8 @@ export const menuData = {
           ],
           method:
             'Макароны смешивают с говядиной в соусе, украшают базиликом и сыром.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
+          image: '/menu/mains/caser.jpeg',
+          chip: '690 ₽'
         },
         {
           id: 'tagliatelle_shrimp',
@@ -684,8 +684,8 @@ export const menuData = {
           ],
           method:
             'Паста готовится в песто, смешивается с креветками и томатами, украшается страчателлой.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
+          image: '/menu/mains/taltel.jpeg',
+          chip: '790 ₽'
         },
         {
           id: 'pastrami_sandwich',
@@ -704,8 +704,8 @@ export const menuData = {
           ],
           method:
             'Хлеб смазывают соусом, собирают сэндвич, грилят под прессом и нарезают.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
+          image: '/menu/mains/sand_pastr.jpeg',
+          chip: '790 ₽'
         }
       ],
       extras: []
@@ -731,8 +731,8 @@ export const menuData = {
           ],
           method:
             'Тесто многослойное, с медом; после выпечки исключает аллергенность меда.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
+          image: '/menu/croissants/cru_class.jpeg',
+          chip: '295 ₽'
         },
         {
           id: 'croissant_salmon',
@@ -749,8 +749,8 @@ export const menuData = {
           ],
           method:
             'Круассан разрезают, смазывают кремом, кладут огурец и семгу.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
+          image: '/menu/croissants/cru_salmon.jpeg',
+          chip: '720 ₽'
         },
         {
           id: 'croissant_mortadella',
@@ -765,8 +765,8 @@ export const menuData = {
             'Песто'
           ],
           method: 'Круассан наполняют ингредиентами и слегка разогревают.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
+          image: '/menu/croissants/cru_mort.jpeg',
+          chip: '780 ₽'
         }
       ],
       extras: []
@@ -777,7 +777,7 @@ export const menuData = {
       items: [
         {
           id: 'pavlova_raspberry_passionfruit',
-          name: 'Павлова малина/маракуя',
+          name: 'Павлова',
           shortDescription: 'Безе с шоколадом и ягодным конфи',
           fullDescription:
             'Хрустящее безе с белым шоколадом и начинкой из пюре малины или маракуйи, крем на основе маскарпоне.',
@@ -790,12 +790,12 @@ export const menuData = {
           ],
           method:
             'Безе выпекают с шоколадом, наполняют ягодным конфи и украшают кремом.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
+          image: '/menu/desserts/pavlova.jpeg',
+          chip: '650 ₽'
         },
         {
           id: 'meringue_roll_raspberry',
-          name: 'Меренг рулет малина',
+          name: 'Меренговый рулет',
           shortDescription: 'Суфлейная меренга с малиной и миндалём',
           fullDescription:
             'Мягкая меренга-рулет с малиновой начинкой и сливочно-сырным кремом, украшена миндальными лепестками.',
@@ -807,12 +807,12 @@ export const menuData = {
           ],
           method:
             'Меренгу выпекают, сворачивают с начинкой и украшают лепестками.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
+          image: '/menu/desserts/mereng.jpeg',
+          chip: '450 ₽'
         },
         {
           id: 'eclair_classic',
-          name: 'Эклер классический',
+          name: 'Эклер',
           shortDescription: 'Пирожное с заварным кремом и шоколадом',
           fullDescription:
             'Заварное тесто с начинкой из заварного крема и молочного шоколада; вариант с солёной карамелью.',
@@ -824,8 +824,8 @@ export const menuData = {
           ],
           method:
             'Тесто наполняют кремом, покрывают шоколадом и украшают карамелью.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
+          image: '/menu/desserts/cler.jpeg',
+          chip: '440 ₽'
         },
         {
           id: 'cheesecake_finch',
@@ -843,41 +843,8 @@ export const menuData = {
           ],
           method:
             'Чизкейк запекают до трещин на поверхности, подают охлаждённым.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
-        },
-        {
-          id: 'lapka_finch',
-          name: 'Лапка FINCH',
-          shortDescription: 'Малиновый мусс на шоколадном бисквите',
-          fullDescription:
-            'Пирожное из малинового мусса на шоколадном бисквите с ганашем и молочным шоколадом.',
-          ingredients: [
-            'Малиновый мусс',
-            'Шоколадный бисквит',
-            'Ганаш',
-            'Молочный шоколад'
-          ],
-          method:
-            'Слои выкладывают друг на друга, покрывают шоколадной глазурью.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
-        },
-        {
-          id: 'cupcake_daisy',
-          name: 'Капкейк ромашка',
-          shortDescription: 'Ванильный капкейк с ягодами',
-          fullDescription:
-            'Ванильный капкейк с ягодным миксом (малина, клубника, смородина, вишня) и сырно-сливочным кремом.',
-          ingredients: [
-            'Ванильное тесто',
-            'Ягодная начинка',
-            'Сырно-сливочный крем'
-          ],
-          method:
-            'Капкейк выпекают, наполняют ягодами и украшают кремом.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
+          image: '/menu/desserts/chizcake.jpeg',
+          chip: '550 ₽'
         },
         {
           id: 'chou',
@@ -892,46 +859,12 @@ export const menuData = {
           ],
           method:
             'Шу заполняют кремом и запекают до золотистой корочки.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
-        },
-        {
-          id: 'potato_matcha',
-          name: 'Картошка матча',
-          shortDescription: 'Бисквитное пирожное в матча-шоколаде',
-          fullDescription:
-            'Бисквитное пирожное с чаем матча в белом шоколаде, посыпанное миндалем.',
-          ingredients: [
-            'Бисквит',
-            'Матча',
-            'Белый шоколад',
-            'Миндаль'
-          ],
-          method:
-            'Пирожное формируют из крошек бисквита, обмакивают в шоколад и обсыпают орехами.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
-        },
-        {
-          id: 'potato_hazelnut',
-          name: 'Картошка фундук',
-          shortDescription: 'Шоколадная крошка с кремом и фундуком',
-          fullDescription:
-            'Пирожное из шоколадной бисквитной крошки со сливочным кремом и пастой фундука.',
-          ingredients: [
-            'Бисквитная крошка',
-            'Крем',
-            'Фундучная паста',
-            'Молочный шоколад'
-          ],
-          method:
-            'Формируют шарики, обваливают в шоколадной глазури с фундуком.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
+          image: '/menu/desserts/shu.jpeg',
+          chip: '230 ₽'
         },
         {
           id: 'cookie_shoko',
-          name: 'Печенье шоко',
+          name: 'Печенье',
           shortDescription: 'Шоколадное печенье с тремя видами шоколада',
           fullDescription:
             'Хрустящее снаружи и мягкое внутри печенье с тёмным, молочным и белым шоколадом.',
@@ -943,12 +876,12 @@ export const menuData = {
           ],
           method:
             'Замешивают тесто с кусочками шоколада, выпекают до мягкости внутри.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
+          image: '/menu/desserts/cookie.jpeg',
+          chip: '230 ₽'
         },
         {
           id: 'lemon_poppy_seed_cake',
-          name: 'Кекс лимонный с маком',
+          name: 'Кекс лимонный',
           shortDescription: 'Лимонный кекс с маком и меренгой',
           fullDescription:
             'Влажный лимонный кекс с маком, покрытый воздушной опалённой меренгой.',
@@ -962,27 +895,10 @@ export const menuData = {
           ],
           method:
             'Кекс выпекают, сверху запекают меренгу до золотистого оттенка.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
+          image: '/menu/desserts/lemon_keks.jpeg',
+          chip: '390 ₽'
         },
-        {
-          id: 'hazelnut_tart',
-          name: 'Фундучный тарт',
-          shortDescription: 'Тарт с крем-чизом и фундуком',
-          fullDescription:
-            'Бретонское сабле с заварным и крем-чизом, фундуковой пастой и шоколадной карамелью.',
-          ingredients: [
-            'Сабле',
-            'Заварной крем',
-            'Крем-чиз',
-            'Фундук',
-            'Шоколадная карамель'
-          ],
-          method:
-            'Тарт собирают слоями в форме, охлаждают и украшают орехами.',
-          image: '/menu/egg/glaz.jpg',
-          chip: '—'
-        }
+
       ],
       extras: []
     }
