@@ -3,7 +3,8 @@ export interface MenuItem {
   name: string;
   ingredients: string[];
   method: string;
-  description: string;
+  shortDescription: string;
+  fullDescription: string;
   image: string;
   chip: string;
 }
