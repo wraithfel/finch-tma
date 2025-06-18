@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import type { MenuItem } from '@/lib/types/menu'
 import MenuCard from '@/components/MenuCard'

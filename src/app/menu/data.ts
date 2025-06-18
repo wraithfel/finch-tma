@@ -1,5 +1,3 @@
-'use client';
-
 export const menuData = {
   categories: [
     {
@@ -20,7 +18,7 @@ export const menuData = {
           ],
           method:
             '2 яйца жарятся на растительном масле до плотного белка и жидкого желтка.',
-          image: '/menu/egg/glaz.jpg',
+          image: '/images/menu/egg/glaz.jpg',
           chip: '220 ₽'
         },
         {
@@ -41,7 +39,7 @@ export const menuData = {
           ],
           method:
             'Яйца смешиваются со сливками и готовятся на сливочном масле до мягкой, воздушной консистенции.',
-          image: '/menu/egg/scrambl.jpg',
+          image: '/images/menu/egg/scrambl.jpg',
           chip: '220 ₽'
         },
         {
@@ -59,7 +57,7 @@ export const menuData = {
           ],
           method:
             'Яйца взбиваются с молоком, обжариваются на растительном масле до пышности и золотистого цвета.',
-          image: '/menu/egg/omlet.jpg',
+          image: '/images/menu/egg/omlet.jpg',
           chip: '220 ₽'
         },
         {
@@ -75,7 +73,7 @@ export const menuData = {
           ],
           method:
             'Яйцо варится в кипящей солёной воде 3–4 минуты до готовности белка с жидким желтком.',
-          image: '/menu/egg/pashot.jpg',
+          image: '/images/menu/egg/pashot.jpg',
           chip: '220 ₽'
         },
         {
@@ -92,7 +90,7 @@ export const menuData = {
           ],
           method:
             'Яйца быстро мешаются на горячей сковороде до образования нежной, однородной массы.',
-          image: '/menu/egg/bolt.jpg',
+          image: '/images/menu/egg/bolt.jpg',
           chip: '220 ₽'
         }
       ],
@@ -156,7 +154,7 @@ export const menuData = {
           ],
           method:
             'Сырники-шарики обжариваются, украшены сливочным соусом и фисташками.',
-          image: '/menu/syrniki/mini_syr.jpeg',
+          image: '/images/menu/syrniki/mini_syr.jpeg',
           chip: '620 ₽'
         },
         {
@@ -173,7 +171,7 @@ export const menuData = {
             'Масло растительное'
           ],
           method: 'Сырники обжариваются до золотистой корочки.',
-          image: '/menu/syrniki/classic_syr.jpeg',
+          image: '/images/menu/syrniki/classic_syr.jpeg',
           chip: '350 ₽'
         }
       ],
@@ -211,7 +209,7 @@ export const menuData = {
           ],
           method:
             'Тост смазывают кремом, добавляют томаты и авокадо, украшают мятой и семенами.',
-          image: '/menu/breakfasts/avocado_tost.jpeg',
+          image: '/images/menu/breakfasts/avocado_tost.jpeg',
           chip: '850 ₽'
         },
         {
@@ -232,7 +230,7 @@ export const menuData = {
           ],
           method:
             'Бриошь смачивают в яйце, обжаривают, выкладывают пастрами, пашот и поливают голландезом.',
-          image: '/menu/breakfasts/ben_pastr.jpeg',
+          image: '/images/menu/breakfasts/ben_pastr.jpeg',
           chip: '920 ₽'
         },
         {
@@ -252,7 +250,7 @@ export const menuData = {
           ],
           method:
             'Бриошь обжаривают, добавляют лосось, пашот и голландез.',
-          image: '/menu/breakfasts/ben_salmon.jpeg',
+          image: '/images/menu/breakfasts/ben_salmon.jpeg',
           chip: '890 ₽'
         },
         {
@@ -275,7 +273,7 @@ export const menuData = {
           ],
           method:
             'Оладьи жарят до хрустящей корочки, подают с соусом и страчателлой.',
-          image: '/menu/breakfasts/olad_tsuki.jpeg',
+          image: '/images/menu/breakfasts/olad_tsuki.jpeg',
           chip: '680 ₽'
         },
         {
@@ -302,7 +300,7 @@ export const menuData = {
           ],
           method:
             'Тушат соус, добавляют яйца пашот, украшают сыром и зеленью.',
-          image: '/menu/breakfasts/shakshuka.jpeg',
+          image: '/images/menu/breakfasts/shakshuka.jpeg',
           chip: '680 ₽'
         },
         {
@@ -325,7 +323,7 @@ export const menuData = {
           ],
           method:
             'Готовят пюре, добавляют яйца пашот, украшают зеленью.',
-          image: '/menu/breakfasts/green_shakshuka.jpeg',
+          image: '/images/menu/breakfasts/green_shakshuka.jpeg',
           chip: '680 ₽'
         },
         {
@@ -346,7 +344,7 @@ export const menuData = {
           ],
           method:
             'Состав укладывают слоями: драник, яйца, лосось и огурцы, украшают кремом и зеленью.',
-          image: '/menu/breakfasts/salmon_dranik.jpeg',
+          image: '/images/menu/breakfasts/salmon_dranik.jpeg',
           chip: '850 ₽'
         },
         {
@@ -368,7 +366,7 @@ export const menuData = {
           ],
           method:
             'Омлет готовят с добавлением сметаны, сверху выкладывают стейк, поливают демиглассом.',
-          image: '/menu/breakfasts/steak_omlet.jpeg',
+          image: '/images/menu/breakfasts/steak_omlet.jpeg',
           chip: '930 ₽'
         },
         {
@@ -385,7 +383,7 @@ export const menuData = {
             'Масло оливковое'
           ],
           method: 'Круассан фаршируют и слегка поджаривают.',
-          image: '/menu/breakfasts/french_break.jpeg',
+          image: '/images/menu/breakfasts/french_break.jpeg',
           chip: '740 ₽'
         }
       ],
@@ -416,7 +414,7 @@ export const menuData = {
           ],
           method:
             'Все ингредиенты выкладывают на шпинат, заправляют медово-горчичным соусом, украшают семенами и зеленью.',
-          image: '/menu/salads/avocado_salad.jpeg',
+          image: '/images/menu/salads/avocado_salad.jpeg',
           chip: '720 ₽'
         },
         {
@@ -438,7 +436,7 @@ export const menuData = {
           ],
           method:
             'Зелень смешивают с соусом, выкладывают манго-конфи и лосось, украшают луком.',
-          image: '/menu/salads/salad_salmon.jpeg',
+          image: '/images/menu/salads/salad_salmon.jpeg',
           chip: '850 ₽'
         },
         {
@@ -457,7 +455,7 @@ export const menuData = {
           ],
           method:
             'Стейк жарят, нарезают, подают на зелёной подушке, заливают соусом и украшают.',
-          image: '/menu/salads/steak_salad.jpeg',
+          image: '/images/menu/salads/steak_salad.jpeg',
           chip: '890 ₽'
         }
       ],
@@ -484,7 +482,7 @@ export const menuData = {
           ],
           method:
             'Каша варится на молоке, украшается ягодами, бананом, медом и крамблом.',
-          image: '/menu/kashi/ovsyanka.jpg',
+          image: '/images/menu/kashi/ovsyanka.jpg',
           chip: '530 ₽'
         },
         {
@@ -503,7 +501,7 @@ export const menuData = {
           ],
           method:
             'Кашу варят до кремовой текстуры, подают с двумя видами конфи и фисташками.',
-          image: '/menu/kashi/rice.jpg',
+          image: '/images/menu/kashi/rice.jpg',
           chip: '580 ₽'
         }
       ],
@@ -532,7 +530,7 @@ export const menuData = {
           ],
           method:
             'Суп варят из овощей и томатов, пюрируют, подают с тостом под БлюЧизом.',
-          image: '/menu/soups/tomato_soup.jpeg',
+          image: '/images/menu/soups/tomato_soup.jpeg',
           chip: '510 ₽'
         },
         {
@@ -551,7 +549,7 @@ export const menuData = {
           ],
           method:
             'В глубокую тарелку кладут зелень и тост, заливают горячим бульоном и добавляют пашот.',
-          image: '/menu/soups/chicken_soup.jpeg',
+          image: '/images/menu/soups/chicken_soup.jpeg',
           chip: '450 ₽'
         }
       ],
@@ -577,7 +575,7 @@ export const menuData = {
           ],
           method:
             'Панкейки выкладывают стопкой, поливают соусом, украшают ягодами и конфи.',
-          image: '/menu/pancakes/pan_berry.jpeg',
+          image: '/images/menu/pancakes/pan_berry.jpeg',
           chip: '680 ₽'
         },
         {
@@ -595,7 +593,7 @@ export const menuData = {
           ],
           method:
             'Панкейки поливают конфи, украшают голубикой и посыпают пудрой.',
-          image: '/menu/pancakes/pancake_gol.jpeg',
+          image: '/images/menu/pancakes/pancake_gol.jpeg',
           chip: '670 ₽'
         },
         {
@@ -614,7 +612,7 @@ export const menuData = {
           ],
           method:
             'Поливают шоколадом и вишней, посыпают карамелью и какао, украшают бутоном.',
-          image: '/menu/pancakes/pancake_vish.jpeg',
+          image: '/images/menu/pancakes/pancake_vish.jpeg',
           chip: '620 ₽'
         }
       ],
@@ -648,7 +646,7 @@ export const menuData = {
           ],
           method:
             'Грудку жарят и запекают, пасту тушат в сливках с грибами, подают вместе.',
-          image: '/menu/mains/ptitim.jpeg',
+          image: '/images/menu/mains/ptitim.jpeg',
           chip: '760 ₽'
         },
         {
@@ -666,7 +664,7 @@ export const menuData = {
           ],
           method:
             'Макароны смешивают с говядиной в соусе, украшают базиликом и сыром.',
-          image: '/menu/mains/caser.jpeg',
+          image: '/images/menu/mains/caser.jpeg',
           chip: '690 ₽'
         },
         {
@@ -684,7 +682,7 @@ export const menuData = {
           ],
           method:
             'Паста готовится в песто, смешивается с креветками и томатами, украшается страчателлой.',
-          image: '/menu/mains/taltel.jpeg',
+          image: '/images/menu/mains/taltel.jpeg',
           chip: '790 ₽'
         },
         {
@@ -704,7 +702,7 @@ export const menuData = {
           ],
           method:
             'Хлеб смазывают соусом, собирают сэндвич, грилят под прессом и нарезают.',
-          image: '/menu/mains/sand_pastr.jpeg',
+          image: '/images/menu/mains/sand_pastr.jpeg',
           chip: '790 ₽'
         }
       ],
@@ -731,7 +729,7 @@ export const menuData = {
           ],
           method:
             'Тесто многослойное, с медом; после выпечки исключает аллергенность меда.',
-          image: '/menu/croissants/cru_class.jpeg',
+          image: '/images/menu/croissants/cru_class.jpeg',
           chip: '295 ₽'
         },
         {
@@ -749,7 +747,7 @@ export const menuData = {
           ],
           method:
             'Круассан разрезают, смазывают кремом, кладут огурец и семгу.',
-          image: '/menu/croissants/cru_salmon.jpeg',
+          image: '/images/menu/croissants/cru_salmon.jpeg',
           chip: '720 ₽'
         },
         {
@@ -765,7 +763,7 @@ export const menuData = {
             'Песто'
           ],
           method: 'Круассан наполняют ингредиентами и слегка разогревают.',
-          image: '/menu/croissants/cru_mort.jpeg',
+          image: '/images/menu/croissants/cru_mort.jpeg',
           chip: '780 ₽'
         }
       ],
@@ -790,7 +788,7 @@ export const menuData = {
           ],
           method:
             'Безе выпекают с шоколадом, наполняют ягодным конфи и украшают кремом.',
-          image: '/menu/desserts/pavlova.jpeg',
+          image: '/images/menu/desserts/pavlova.jpeg',
           chip: '650 ₽'
         },
         {
@@ -807,7 +805,7 @@ export const menuData = {
           ],
           method:
             'Меренгу выпекают, сворачивают с начинкой и украшают лепестками.',
-          image: '/menu/desserts/mereng.jpeg',
+          image: '/images/menu/desserts/mereng.jpeg',
           chip: '450 ₽'
         },
         {
@@ -824,7 +822,7 @@ export const menuData = {
           ],
           method:
             'Тесто наполняют кремом, покрывают шоколадом и украшают карамелью.',
-          image: '/menu/desserts/cler.jpeg',
+          image: '/images/menu/desserts/cler.jpeg',
           chip: '440 ₽'
         },
         {
@@ -843,7 +841,7 @@ export const menuData = {
           ],
           method:
             'Чизкейк запекают до трещин на поверхности, подают охлаждённым.',
-          image: '/menu/desserts/chizcake.jpeg',
+          image: '/images/menu/desserts/chizcake.jpeg',
           chip: '550 ₽'
         },
         {
@@ -859,7 +857,7 @@ export const menuData = {
           ],
           method:
             'Шу заполняют кремом и запекают до золотистой корочки.',
-          image: '/menu/desserts/shu.jpeg',
+          image: '/images/menu/desserts/shu.jpeg',
           chip: '230 ₽'
         },
         {
@@ -876,7 +874,7 @@ export const menuData = {
           ],
           method:
             'Замешивают тесто с кусочками шоколада, выпекают до мягкости внутри.',
-          image: '/menu/desserts/cookie.jpeg',
+          image: '/images/menu/desserts/cookie.jpeg',
           chip: '230 ₽'
         },
         {
@@ -895,7 +893,7 @@ export const menuData = {
           ],
           method:
             'Кекс выпекают, сверху запекают меренгу до золотистого оттенка.',
-          image: '/menu/desserts/lemon_keks.jpeg',
+          image: '/images/menu/desserts/lemon_keks.jpeg',
           chip: '390 ₽'
         },
 
