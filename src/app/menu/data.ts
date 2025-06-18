@@ -499,7 +499,7 @@ export const menuData = {
     },
     {
       key: 'mains',
-      name: 'Основные блюда',
+      name: 'Основные',
       items: [
         {
           id: 'chicken_ptitim',

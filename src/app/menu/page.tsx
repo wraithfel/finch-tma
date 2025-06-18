@@ -5,8 +5,6 @@ import { menuData } from './data'
 import MenuCard from '@/components/MenuCard'
 import DefaultHeader from '@/components/DefaultHeader'
 import type { Menu } from '@/lib/types/menu'
-import { Breadcrumbs } from '@telegram-apps/telegram-ui'
-import { BreadCrumbsItem } from '@telegram-apps/telegram-ui/dist/components/Navigation/Breadcrumbs/components/BreadCrumbsItem/BreadCrumbsItem'
 
 const menu = menuData as Menu
 
@@ -20,28 +18,41 @@ export default function MenuPage() {
       <DefaultHeader />
 
       <main className="flex-1 overflow-y-auto p-4 space-y-6">
-        <Breadcrumbs
-          divider="dot"
-          className="flex flex-wrap text-[var(--tg-theme-text-color)]"
-        >
-          {menu.categories.map(c => (
-            <BreadCrumbsItem
-              key={c.key}
-              selected={c.key === selected}
-              onClick={() => setSelected(c.key)}
-              className={`
-                px-4 py-2 rounded-full cursor-pointer transition
-                ${c.key === selected
-                  ? 'bg-[var(--tg-theme-button-color)] text-[var(--tg-theme-button-text-color)] font-bold'
-                  : 'bg-transparent text-[var(--tg-theme-text-color)] font-semibold'
-                }
-              `}
-            >
-              {c.name}
-            </BreadCrumbsItem>
-          ))}
-        </Breadcrumbs>
-
+        {/* категории — 4 элегантные кнопки в строке */}
+        <div className="flex flex-wrap -mx-1">
+          {menu.categories.map(c => {
+            const active = c.key === selected
+            return (
+              <button
+                key={c.key}
+                onClick={() => setSelected(c.key)}
+                className={`
+                  w-1/4 px-1 mb-2
+                  text-center py-2 rounded-full transition-all duration-200
+                  backdrop-blur-sm
+                  ${active
+                    ? `
+                        bg-[var(--tg-theme-button-color)]
+                        text-[var(--tg-theme-button-text-color)]
+                        font-bold
+                        shadow-md shadow-[color-mix(in_srgb,var(--tg-theme-button-color)_40%,transparent)]
+                      `
+                    : `
+                        text-[var(--tg-theme-hint-color)]
+                        font-medium
+                        bg-[color-mix(in_srgb,var(--tg-theme-hint-color)_10%,transparent)]
+                        ring-1 ring-inset ring-[color-mix(in_srgb,var(--tg-theme-hint-color)_30%,transparent)]
+                        hover:bg-[color-mix(in_srgb,var(--tg-theme-hint-color)_16%,transparent)]
+                        hover:ring-[color-mix(in_srgb,var(--tg-theme-hint-color)_45%,transparent)]
+                      `
+                  }
+                `}
+              >
+                {c.name}
+              </button>
+            )
+          })}
+        </div>
 
         <h1 className="text-2xl font-extrabold text-[var(--tg-theme-text-color)]">
           {category.name}
