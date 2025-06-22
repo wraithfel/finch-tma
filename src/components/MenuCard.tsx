@@ -39,7 +39,7 @@ export default function MenuCard({
           className="absolute top-3 left-3 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium shadow-sm"
           style={{
             backgroundColor: 'var(--tg-theme-button-color)',
-            color: 'var(--tg-theme-button-text-color)',
+            color: 'var(--tg-theme-hint-color)',
             width: 'max-content',
           }}
         >

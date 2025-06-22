@@ -11,7 +11,11 @@ export async function generateStaticParams() {
   return menu.categories.flatMap(c => c.items).map(i => ({ id: i.id }))
 }
 
-export default async function DishPage({ params }: { params: Promise<{ id: string }> }) {
+interface DishPageProps {
+  params: Promise<{ id: string }>
+}
+
+export default async function DishPage({ params }: DishPageProps) {
   const { id } = await params
   const item = menu.categories.flatMap(c => c.items).find(i => i.id === id)
   if (!item) return notFound()
@@ -21,6 +25,7 @@ export default async function DishPage({ params }: { params: Promise<{ id: strin
       <DefaultHeader />
 
       <main className="flex-1 overflow-y-auto p-4 space-y-8">
+        {/* Image banner */}
         <div className="relative w-full aspect-[4/3] sm:aspect-auto sm:h-[420px] overflow-hidden rounded-3xl shadow-xl ring-1 ring-[color-mix(in_srgb,var(--tg-theme-hint-color)_50%,transparent)] group">
           <Image
             src={item.image}
@@ -39,10 +44,12 @@ export default async function DishPage({ params }: { params: Promise<{ id: strin
           </h1>
         </div>
 
+        {/* Full description */}
         <p className="text-base leading-relaxed text-[var(--tg-theme-text-color)] opacity-90">
           {item.fullDescription}
         </p>
 
+        {/* Ingredients */}
         <section>
           <h2 className="mb-3 text-lg font-semibold text-[var(--tg-theme-text-color)]">Ингредиенты</h2>
           <ul className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm opacity-90">
@@ -54,6 +61,45 @@ export default async function DishPage({ params }: { params: Promise<{ id: strin
           </ul>
         </section>
 
+        {/* Allergens – rendered only if present */}
+        {item.allergens && (
+          <section>
+            <h2 className="mb-3 text-lg font-semibold text-[var(--tg-theme-text-color)]">Аллергены</h2>
+            <ul className="flex flex-wrap gap-2 text-sm opacity-90">
+              {item.allergens.map((allergen: string) => (
+                <li
+                  key={allergen}
+                  className="px-2 py-1 rounded-full bg-red-50 text-red-700 ring-1 ring-red-200"
+                >
+                  {allergen}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {/* Nutrition (КБЖУ) – rendered only if present */}
+        {item.nutrition && (
+          <section>
+            <h2 className="mb-3 text-lg font-semibold text-[var(--tg-theme-text-color)]">КБЖУ (на порцию)</h2>
+            <ul className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm opacity-90">
+              <li>
+                Калории: <span className="font-semibold">{item.nutrition.calories}</span> ккал
+              </li>
+              <li>
+                Белки: <span className="font-semibold">{item.nutrition.protein}</span> г
+              </li>
+              <li>
+                Жиры: <span className="font-semibold">{item.nutrition.fat}</span> г
+              </li>
+              <li>
+                Углеводы: <span className="font-semibold">{item.nutrition.carbs}</span> г
+              </li>
+            </ul>
+          </section>
+        )}
+
+        {/* Cooking method */}
         <section>
           <h2 className="mb-2 text-lg font-semibold text-[var(--tg-theme-text-color)]">Метод приготовления</h2>
           <p className="text-sm leading-relaxed opacity-90">{item.method}</p>

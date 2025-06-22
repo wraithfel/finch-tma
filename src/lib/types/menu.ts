@@ -1,3 +1,10 @@
+export interface Sauce {
+  id: string          
+  name: string  
+  ingredients: string[]
+  allergens?: string[]   
+}
+
 export interface MenuItem {
   id: string;
   name: string;
@@ -7,6 +14,14 @@ export interface MenuItem {
   fullDescription: string;
   image: string;
   chip: string;
+  allergens?: string[]
+  nutrition?: {
+    calories: number
+    protein: number
+    fat: number
+    carbs: number
+  };
+  saucesIds?: string[]
 }
 
 export interface Extra {
