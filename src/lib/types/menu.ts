@@ -21,7 +21,7 @@ export interface MenuItem {
     fat: number
     carbs: number
   };
-  saucesIds?: string[]
+  sauceIds?: string[]
 }
 
 export interface Extra {

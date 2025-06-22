@@ -1,4 +1,3 @@
-// src/components/DishActions.tsx
 'use client';
 
 import React from 'react';
@@ -10,7 +9,6 @@ interface DishActionsProps {
 
 export default function DishActions({ dishId }: DishActionsProps) {
   const handleAddToCart = () => {
-    // TODO: ваш dispatch/add-to-cart
     console.log('Добавлено в заказ:', dishId);
   };
 

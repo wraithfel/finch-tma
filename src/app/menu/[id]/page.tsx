@@ -4,6 +4,7 @@ import { menuData } from '../data'
 import type { Menu } from '@/lib/types/menu'
 import Image from 'next/image'
 import DishActions from '@/components/DishActions'
+import NutritionCycle from '@/components/NutritionCycle';
 
 const menu = menuData as Menu
 
@@ -77,26 +78,9 @@ export default async function DishPage({ params }: DishPageProps) {
             </ul>
           </section>
         )}
-
-        {/* Nutrition (КБЖУ) – rendered only if present */}
+        
         {item.nutrition && (
-          <section>
-            <h2 className="mb-3 text-lg font-semibold text-[var(--tg-theme-text-color)]">КБЖУ (на порцию)</h2>
-            <ul className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm opacity-90">
-              <li>
-                Калории: <span className="font-semibold">{item.nutrition.calories}</span> ккал
-              </li>
-              <li>
-                Белки: <span className="font-semibold">{item.nutrition.protein}</span> г
-              </li>
-              <li>
-                Жиры: <span className="font-semibold">{item.nutrition.fat}</span> г
-              </li>
-              <li>
-                Углеводы: <span className="font-semibold">{item.nutrition.carbs}</span> г
-              </li>
-            </ul>
-          </section>
+         <NutritionCycle nutrition={item.nutrition} />
         )}
 
         {/* Cooking method */}
