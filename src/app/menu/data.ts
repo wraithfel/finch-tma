@@ -823,55 +823,85 @@ export const menuData = {
   ],
   extras: []
 },
-{
-  id: 'classic_croissant',
-  name: 'Круассан классический',
-  shortDescription: 'Слоеный круассан с медом и маслом',
-  fullDescription: 'Классический круассан',
-  ingredients: [
-    'Мука',
-    'Вода',
-    'Молоко',
-    'Дрожжи',
-    'Сахар',
-    'Мёд натуральный',
-    'Масло сливочное'
-  ],
-  method:
-    'Тесто многослойное, с медом; после выпечки исключает аллергенность меда.',
-  image: '/images/menu/croissants/cru_class.jpeg',
-  chip: '295 ₽',
-  nutrition: {
-    calories: 210,
-    protein: 4,
-    fat: 14,
-    carbs: 18
-  }
-},
-{
-  id: 'croissant_salmon',
-  name: 'Круассан с лососем',
-  shortDescription: 'Круассан с кремом и слабосолёной семгой',
-  fullDescription:
-    'Классический круассан с творожным кремом, свежим огурцом и слайсами лосося.',
-  ingredients: [
-    'Круассан',
-    'Творожный крем',
-    'Семга слабосолёная',
-    'Огурец',
-    'Укроп'
-  ],
-  method:
-    'Круассан разрезают, смазывают кремом, кладут огурец и семгу.',
-  image: '/images/menu/croissants/cru_salmon.jpeg',
-  chip: '720 ₽',
-  nutrition: {
-    calories: 350,
-    protein: 11,
-    fat: 25,
-    carbs: 20
-  }
-},
+ {
+      key: 'croissants',
+      name: 'Круассаны',
+      items: [
+        {
+          id: 'classic_croissant',
+          name: 'Круассан классический',
+          shortDescription: 'Слоеный круассан с медом и маслом',
+          fullDescription: 'Классический круассан',
+          ingredients: [
+            'Мука',
+            'Вода',
+            'Молоко',
+            'Дрожжи',
+            'Сахар',
+            'Мёд натуральный',
+            'Масло сливочное'
+          ],
+          method:
+            'Тесто многослойное, с медом; после выпечки исключает аллергенность меда.',
+          image: '/images/menu/croissants/cru_class.jpeg',
+          chip: '295 ₽',
+          nutrition: {
+            calories: 210,
+            protein: 4,
+            fat: 14,
+            carbs: 18
+          }
+        },
+        {
+          id: 'croissant_salmon',
+          name: 'Круассан с лососем',
+          shortDescription: 'Круассан с кремом и слабосолёной семгой',
+          fullDescription:
+            'Классический круассан с творожным кремом, свежим огурцом и слайсами лосося.',
+          ingredients: [
+            'Круассан',
+            'Творожный крем',
+            'Семга слабосолёная',
+            'Огурец',
+            'Укроп'
+          ],
+          method:
+            'Круассан разрезают, смазывают кремом, кладут огурец и семгу.',
+          image: '/images/menu/croissants/cru_salmon.jpeg',
+          chip: '720 ₽',
+          nutrition: {
+            calories: 350,
+            protein: 11,
+            fat: 25,
+            carbs: 20
+          }
+        },
+        {
+          id: 'croissant_mortadella',
+          name: 'Круассан с мортаделлой',
+          shortDescription: 'Круассан с мортаделлой, страчателлой и песто',
+          fullDescription:
+            'Ничего лишнего: хрустящий круассан, много мортаделлы, сливочная страчателла и классический итальянский песто.',
+          ingredients: [
+            'Круассан',
+            'Мортаделла',
+            'Страчателла',
+            'Песто'
+          ],
+          method:
+            'Круассан наполняют ингредиентами и слегка разогревают.',
+          image: '/images/menu/croissants/cru_mort.jpeg',
+          chip: '780 ₽',
+          nutrition: {
+            calories: 556,
+            protein: 21,
+            fat: 43,
+            carbs: 21
+          }
+        }
+      ],
+      extras: []
+    },
 {
   key: 'desserts',
   name: 'Десерты',
