@@ -26,7 +26,6 @@ export default async function DishPage({ params }: DishPageProps) {
       <DefaultHeader />
 
       <main className="flex-1 overflow-y-auto p-4 space-y-8">
-        {/* Image banner */}
         <div className="relative w-full aspect-[4/3] sm:aspect-auto sm:h-[420px] overflow-hidden rounded-3xl shadow-xl ring-1 ring-[color-mix(in_srgb,var(--tg-theme-hint-color)_50%,transparent)] group">
           <Image
             src={item.image}
@@ -45,12 +44,10 @@ export default async function DishPage({ params }: DishPageProps) {
           </h1>
         </div>
 
-        {/* Full description */}
         <p className="text-base leading-relaxed text-[var(--tg-theme-text-color)] opacity-90">
           {item.fullDescription}
         </p>
 
-        {/* Ingredients */}
         <section>
           <h2 className="mb-3 text-lg font-semibold text-[var(--tg-theme-text-color)]">Ингредиенты</h2>
           <ul className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm opacity-90">
@@ -62,7 +59,6 @@ export default async function DishPage({ params }: DishPageProps) {
           </ul>
         </section>
 
-        {/* Allergens – rendered only if present */}
         {item.allergens && (
           <section>
             <h2 className="mb-3 text-lg font-semibold text-[var(--tg-theme-text-color)]">Аллергены</h2>
@@ -78,12 +74,11 @@ export default async function DishPage({ params }: DishPageProps) {
             </ul>
           </section>
         )}
-        
+
         {item.nutrition && (
          <NutritionCycle nutrition={item.nutrition} />
         )}
 
-        {/* Cooking method */}
         <section>
           <h2 className="mb-2 text-lg font-semibold text-[var(--tg-theme-text-color)]">Метод приготовления</h2>
           <p className="text-sm leading-relaxed opacity-90">{item.method}</p>
