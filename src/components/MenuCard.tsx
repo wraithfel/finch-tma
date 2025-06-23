@@ -1,18 +1,19 @@
-'use client';
+'use client'
 
-import React from 'react';
-import Link from 'next/link';
-import { Card } from '@telegram-apps/telegram-ui';
-import { CardCell } from '@telegram-apps/telegram-ui/dist/components/Blocks/Card/components/CardCell/CardCell';
-import { CardChip } from '@telegram-apps/telegram-ui/dist/components/Blocks/Card/components/CardChip/CardChip';
+import React from 'react'
+import Link from 'next/link'
+import { Card } from '@telegram-apps/telegram-ui'
+import { CardCell } from '@telegram-apps/telegram-ui/dist/components/Blocks/Card/components/CardCell/CardCell'
+import { CardChip } from '@telegram-apps/telegram-ui/dist/components/Blocks/Card/components/CardChip/CardChip'
 
-export interface MenuCardProps {
-  id: string;
-  chipText: string;
-  imageSrc: string;
-  altText: string;
-  title: string;
-  subtitle?: string;
+interface MenuCardProps {
+  id: string
+  chipText: string
+  imageSrc: string
+  altText: string
+  title: string
+  subtitle?: string
+  queryCat: string
 }
 
 export default function MenuCard({
@@ -22,16 +23,15 @@ export default function MenuCard({
   altText,
   title,
   subtitle,
+  queryCat,
 }: MenuCardProps) {
   return (
     <Link
-      href={`/menu/${id}`}
-      className="block w-full"               
+      href={{ pathname: `/menu/${id}`, query: { cat: queryCat } }}
+      className="block w-full"
     >
       <Card
-        className="block w-full relative overflow-hidden rounded-2xl shadow-lg
-                   transition-transform duration-200 hover:scale-105
-                   border border-[var(--tg-theme-hint-color)]"
+        className="block w-full relative overflow-hidden rounded-2xl shadow-lg transition-transform duration-200 hover:scale-105 border border-[var(--tg-theme-hint-color)]"
         style={{ backgroundColor: 'var(--tg-theme-section-bg-color)' }}
       >
         <CardChip
@@ -39,7 +39,7 @@ export default function MenuCard({
           className="absolute top-3 left-3 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium shadow-sm"
           style={{
             backgroundColor: 'var(--tg-theme-button-color)',
-            color:    'var(--finch-chip-text-color)',
+            color: 'var(--finch-chip-text-color)',
             width: 'max-content',
           }}
         >
@@ -77,5 +77,5 @@ export default function MenuCard({
         </CardCell>
       </Card>
     </Link>
-  );
+  )
 }
