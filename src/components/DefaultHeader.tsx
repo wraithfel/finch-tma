@@ -1,12 +1,17 @@
 'use client';
 
 import React from 'react';
-import { useRouter } from 'next/navigation';
-import { ArrowLeft } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { ArrowLeft, ShoppingCart } from 'lucide-react';
+import { useCart } from '@/lib/stores/cartStore';
 
 export default function DefaultHeader() {
   const router = useRouter();
+  const totalQty = useCart(
+    (s) => s.items.reduce((sum, ci) => sum + ci.quantity, 0),
+  );
 
   return (
     <header
@@ -26,6 +31,7 @@ export default function DefaultHeader() {
         <ArrowLeft size={18} />
         <span className="text-sm font-medium">Назад</span>
       </button>
+
       <div className="relative h-13 w-32 select-none">
         <Image
           src="/logo-finch.svg"
@@ -35,6 +41,24 @@ export default function DefaultHeader() {
           className="object-contain"
         />
       </div>
+
+      <Link
+        href="/cart"
+        aria-label="Корзина"
+        className="absolute right-3 flex items-center"
+      >
+        <div className="relative">
+          <ShoppingCart
+            size={24}
+            className="text-[var(--tg-theme-text-color)] hover:opacity-80 transition"
+          />
+          {totalQty > 0 && (
+            <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-semibold text-white">
+              {totalQty}
+            </span>
+          )}
+        </div>
+      </Link>
     </header>
   );
 }
