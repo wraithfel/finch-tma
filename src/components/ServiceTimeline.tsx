@@ -15,17 +15,21 @@ export default function ServiceTimeline() {
         Шаг {active + 1} / {steps.length}
       </h2>
 
-      <div className="overflow-x-auto pb-2">
-        <Timeline active={active} horizontal>
-          {steps.map((_, i) => (
-            <Timeline.Item
-              key={i}
-              header=""
-              onClick={() => setActive(i)}
-            />
-          ))}
-        </Timeline>
-      </div>
+    <div className="overflow-hidden pb-2">
+      <Timeline
+        active={active}
+        horizontal
+      className="flex-wrap"
+      >
+      {steps.map((_, i) => (
+        <Timeline.Item
+          key={i}
+          onClick={() => setActive(i)}
+          className="shrink min-w-0"
+        />
+      ))}
+      </Timeline>
+    </div>
 
       <div className="bg-[var(--tg-theme-secondary-bg-color)] rounded-2xl p-4 shadow overflow-y-auto">
         <h3 className="font-medium mb-2 text-center">{steps[active].header}</h3>
