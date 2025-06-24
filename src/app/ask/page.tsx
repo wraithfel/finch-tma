@@ -10,6 +10,7 @@ import { menuData } from '@/app/menu/data';
 export default function AskPage() {
   const params = useSearchParams();
   const initialDish = params.get('dish') ?? undefined;
+
   const { messages, add, reset } = useChat();
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -24,7 +25,8 @@ export default function AskPage() {
   }, [messages, loading]);
 
   const send = async () => {
-    if (!input.trim()) return;
+    if (!input.trim() || loading) return;
+
     const userMsg = { role: 'user' as const, content: input.trim() };
     add(userMsg);
     setInput('');
@@ -34,10 +36,6 @@ export default function AskPage() {
       initialDish &&
       menuData.categories.flatMap(c => c.items).find(i => i.id === initialDish);
 
-    const dishInfo = dish
-      ? `Полные данные о блюде (JSON):\n${JSON.stringify(dish, null, 2)}`
-      : '';
-
     const prompt = [
       {
         role: 'system' as const,
@@ -45,25 +43,45 @@ export default function AskPage() {
           dish ? ` Стажер спрашивает про блюдо «${dish.name}».` : ''
         }`,
       },
-      ...(dish ? [{ role: 'system' as const, content: dishInfo }] : []),
+      ...(dish
+        ? [
+            {
+              role: 'system' as const,
+              content: `Полные данные о блюде (JSON):\n${JSON.stringify(dish, null, 2)}`,
+            },
+          ]
+        : []),
       ...messages,
       userMsg,
     ];
 
-    const res = await fetch('/api/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages: prompt }),
-    });
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: prompt }),
+      });
 
-    const data = await res.json();
-    add({ role: 'assistant', content: data.content });
-    setLoading(false);
+      if (!res.ok) {
+        const text = await res.text();
+        add({ role: 'assistant', content: `Ошибка: ${res.status} – ${text}` });
+        return;
+      }
+
+      const { content } = (await res.json()) as { content: string };
+      add({ role: 'assistant', content });
+    } catch (err) {
+      add({ role: 'assistant', content: 'Не удалось связаться с сервером.' });
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="min-h-dvh flex flex-col bg-[var(--tg-theme-bg-color)]">
       <DefaultHeader />
+
       <main className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map((m, i) => (
           <ChatMessage key={i} {...m} />
@@ -71,6 +89,7 @@ export default function AskPage() {
         {loading && <ChatMessage role="assistant" content="⌛️ ..." />}
         <div ref={bottomRef} />
       </main>
+
       <form
         onSubmit={e => {
           e.preventDefault();
@@ -83,6 +102,7 @@ export default function AskPage() {
           onChange={e => setInput(e.target.value)}
           placeholder="Спросите что-нибудь…"
           className="flex-1 rounded-full px-4 py-3 text-sm bg-[var(--tg-theme-secondary-bg-color)] outline-none"
+          disabled={loading}
         />
         <button
           type="submit"
