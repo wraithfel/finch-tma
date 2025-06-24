@@ -1,25 +1,31 @@
-import { notFound } from 'next/navigation'
-import DefaultHeader from '@/components/DefaultHeader'
-import { menuData } from '../data'
-import type { Menu } from '@/lib/types/menu'
-import Image from 'next/image'
-import DishActions from '@/components/DishActions'
+import { notFound } from 'next/navigation';
+import Image from 'next/image';
+import DefaultHeader from '@/components/DefaultHeader';
+import DishActions from '@/components/DishActions';
 import NutritionCycle from '@/components/NutritionCycle';
+import SauceList from '@/components/SauceList';
 
-const menu = menuData as Menu
+import { menuData } from '../data';
+import type { Menu } from '@/lib/types/menu';
+import { getSauces, mergeAllergens } from '@/lib/utils/menu-helpers';
+
+const menu = menuData as Menu;
 
 export async function generateStaticParams() {
-  return menu.categories.flatMap(c => c.items).map(i => ({ id: i.id }))
+  return menu.categories.flatMap((c) => c.items).map((i) => ({ id: i.id }));
 }
 
 interface DishPageProps {
-  params: Promise<{ id: string }>
+  params: Promise<{ id: string }>;
 }
 
 export default async function DishPage({ params }: DishPageProps) {
-  const { id } = await params
-  const item = menu.categories.flatMap(c => c.items).find(i => i.id === id)
-  if (!item) return notFound()
+  const { id } = await params;
+  const item = menu.categories.flatMap((c) => c.items).find((i) => i.id === id);
+  if (!item) return notFound();
+
+  const sauces = getSauces(item);
+  const allergens = mergeAllergens(item);
 
   return (
     <div className="min-h-dvh flex flex-col bg-[var(--tg-theme-bg-color)]">
@@ -49,21 +55,30 @@ export default async function DishPage({ params }: DishPageProps) {
         </p>
 
         <section>
-          <h2 className="mb-3 text-lg font-semibold text-[var(--tg-theme-text-color)]">Ингредиенты</h2>
+          <h2 className="mb-3 text-lg font-semibold text-[var(--tg-theme-text-color)]">
+            Ингредиенты
+          </h2>
           <ul className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm opacity-90">
             {item.ingredients.map((ing) => (
-              <li key={ing} className="before:content-['•'] before:mr-1 before:text-[var(--tg-theme-button-color)]">
+              <li
+                key={ing}
+                className="before:content-['•'] before:mr-1 before:text-[var(--tg-theme-button-color)]"
+              >
                 {ing}
               </li>
             ))}
           </ul>
         </section>
 
-        {item.allergens && (
+        <SauceList sauces={sauces} />
+
+        {allergens.length > 0 && (
           <section>
-            <h2 className="mb-3 text-lg font-semibold text-[var(--tg-theme-text-color)]">Аллергены</h2>
+            <h2 className="mb-3 text-lg font-semibold text-[var(--tg-theme-text-color)]">
+              Аллергены
+            </h2>
             <ul className="flex flex-wrap gap-2 text-sm opacity-90">
-              {item.allergens.map((allergen: string) => (
+              {allergens.map((allergen) => (
                 <li
                   key={allergen}
                   className="px-2 py-1 rounded-full bg-red-50 text-red-700 ring-1 ring-red-200"
@@ -75,17 +90,17 @@ export default async function DishPage({ params }: DishPageProps) {
           </section>
         )}
 
-        {item.nutrition && (
-         <NutritionCycle nutrition={item.nutrition} />
-        )}
+        {item.nutrition && <NutritionCycle nutrition={item.nutrition} />}
 
         <section>
-          <h2 className="mb-2 text-lg font-semibold text-[var(--tg-theme-text-color)]">Метод приготовления</h2>
+          <h2 className="mb-2 text-lg font-semibold text-[var(--tg-theme-text-color)]">
+            Метод приготовления
+          </h2>
           <p className="text-sm leading-relaxed opacity-90">{item.method}</p>
         </section>
       </main>
 
       <DishActions dishId={item.id} />
     </div>
-  )
+  );
 }
