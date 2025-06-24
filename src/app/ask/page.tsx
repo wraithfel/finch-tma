@@ -10,7 +10,7 @@ import { menuData } from '@/app/menu/data';
 export default function AskPage() {
   const params = useSearchParams();
   const initialDish = params.get('dish') ?? undefined;
-  const { dishName, messages, add, reset } = useChat();
+  const { messages, add, reset } = useChat();
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
