@@ -27,7 +27,7 @@ export default function ServiceTimeline() {
         </Timeline>
       </div>
 
-      <div className="bg-[var(--tg-theme-secondary-bg-color)] rounded-2xl p-4 shadow max-h-[45vh] overflow-y-auto">
+      <div className="bg-[var(--tg-theme-secondary-bg-color)] rounded-2xl p-4 shadow overflow-y-auto">
         <h3 className="font-medium mb-2 text-center">{steps[active].header}</h3>
         {steps[active].body}
       </div>
