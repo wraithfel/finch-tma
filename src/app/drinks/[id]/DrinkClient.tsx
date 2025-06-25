@@ -1,28 +1,24 @@
-"use client";
+'use client'
 
-import React, { useState } from "react";
-import Image from "next/image";
-import DefaultHeader from "@/components/DefaultHeader";
-import NutritionCycle from "@/components/NutritionCycle";
-import { useCart } from "@/lib/stores/cartStore";
-import type { MenuItem } from "@/lib/types/menu";
+import React, { useState } from 'react'
+import Image from 'next/image'
+import DefaultHeader from '@/components/DefaultHeader'
+import NutritionCycle from '@/components/NutritionCycle'
+import { useCart } from '@/lib/stores/cartStore'
+import type { MenuItem } from '@/lib/types/menu'
 
 export default function DrinkClient({ item }: { item: MenuItem }) {
-  const { add, increase, decrease, items } = useCart();
-  const cartItem = items.find((ci) => ci.item.id === item.id && ci.variantId === undefined);
-  const qty = cartItem?.quantity ?? 0;
+  const { add, increase, decrease, items } = useCart()
+  const cartItem = items.find(ci => ci.item.id === item.id && ci.variantId === undefined)
+  const qty = cartItem?.quantity ?? 0
 
-  const [variantId, setVariantId] = useState<string | undefined>(item.variants?.[0]?.id);
+  const [variantId, setVariantId] = useState<string | undefined>(item.variants?.[0]?.id)
 
   const handleAdd = () => {
-    if (qty === 0) {
-      add(item, variantId);
-    } else {
-      increase(item.id, variantId);
-    }
-  };
-
-  const dec = () => decrease(item.id, variantId);
+    if (qty === 0) add(item, variantId)
+    else increase(item.id, variantId)
+  }
+  const dec = () => decrease(item.id, variantId)
 
   return (
     <div className="min-h-dvh flex flex-col bg-[var(--tg-theme-bg-color)]">
@@ -53,14 +49,14 @@ export default function DrinkClient({ item }: { item: MenuItem }) {
           <section className="space-y-3">
             <h2 className="text-lg font-semibold">Выберите вариант</h2>
             <div className="flex flex-wrap gap-2">
-              {item.variants.map((v) => (
+              {item.variants.map(v => (
                 <button
                   key={v.id}
                   onClick={() => setVariantId(v.id)}
                   className={`px-4 py-1 rounded-full text-sm font-medium backdrop-blur-sm transition-all duration-300 ring-1 ring-[var(--tg-theme-hint-color)] ${
                     variantId === v.id
-                      ? "bg-[var(--tg-theme-button-color)] text-[var(--tg-theme-button-text-color)] shadow"
-                      : "text-[var(--tg-theme-text-color)]/80 hover:bg-[color-mix(in_srgb,var(--tg-theme-hint-color)_12%,transparent)]"
+                      ? 'bg-[var(--tg-theme-button-color)] text-[var(--tg-theme-button-text-color)] shadow'
+                      : 'text-[var(--tg-theme-text-color)]/80 hover:bg-[color-mix(in_srgb,var(--tg-theme-hint-color)_12%,transparent)]'
                   }`}
                 >
                   {v.name}
@@ -74,7 +70,7 @@ export default function DrinkClient({ item }: { item: MenuItem }) {
           <section>
             <h2 className="mb-3 text-lg font-semibold">Состав</h2>
             <ul className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm opacity-90">
-              {item.ingredients.map((ing) => (
+              {item.ingredients.map(ing => (
                 <li
                   key={ing}
                   className="before:content-['•'] before:mr-1 before:text-[var(--tg-theme-button-color)]"
@@ -113,9 +109,7 @@ export default function DrinkClient({ item }: { item: MenuItem }) {
             >
               –
             </button>
-
             <span className="w-10 text-center font-bold select-none">{qty}</span>
-
             <button
               onClick={handleAdd}
               className="flex-1 h-full flex items-center justify-center py-3 hover:bg-emerald-700/30 active:scale-95 transition"
@@ -126,5 +120,5 @@ export default function DrinkClient({ item }: { item: MenuItem }) {
         )}
       </div>
     </div>
-  );
+  )
 }

@@ -1,15 +1,16 @@
-"use client";
-import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
-import type { MenuItem } from "@/lib/types/menu";
+'use client';
 
-interface CartItem {
+import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
+import type { MenuItem } from '@/lib/types/menu';
+
+export interface CartItem {
   item: MenuItem;
   variantId?: string;
   quantity: number;
 }
 
-interface CartState {
+export interface CartState {
   items: CartItem[];
   add: (item: MenuItem, variantId?: string) => void;
   increase: (id: string, variantId?: string) => void;
@@ -17,6 +18,23 @@ interface CartState {
   remove: (id: string, variantId?: string) => void;
   clear: () => void;
 }
+
+interface CartItemV1 {
+  item: MenuItem;
+  quantity: number;
+}
+interface PersistedV1 {
+  items?: CartItemV1[];
+}
+
+const migrateToV2 = (state: PersistedV1) => ({
+  items: (state.items ?? []).map(({ item, quantity }) => ({
+    item,
+    quantity,
+    variantId: undefined,
+  })),
+});
+
 
 const VERSION = 2;
 
@@ -29,6 +47,7 @@ export const useCart = create<CartState>()(
         const exists = get().items.find(
           (ci) => ci.item.id === item.id && ci.variantId === variantId,
         );
+
         if (exists) {
           set({
             items: get().items.map((ci) =>
@@ -38,7 +57,9 @@ export const useCart = create<CartState>()(
             ),
           });
         } else {
-          set({ items: [...get().items, { item, variantId, quantity: 1 }] });
+          set({
+            items: [...get().items, { item, variantId, quantity: 1 }],
+          });
         }
       },
 
@@ -72,21 +93,13 @@ export const useCart = create<CartState>()(
       clear: () => set({ items: [] }),
     }),
     {
-      name: "finch-cart",
+      name: 'finch-cart',
       storage: createJSONStorage(() => localStorage),
       version: VERSION,
-      migrate: (persistedState: any, persistedVersion: number) => {
-        if (persistedVersion === 1) {
-          return {
-            ...persistedState,
-            items: (persistedState.items ?? []).map((ci: any) => ({
-              ...ci,
-              variantId: undefined,
-            })),
-          } as CartState;
-        }
-        return persistedState as CartState;
-      },
+      migrate: (persistedState, persistedVersion) =>
+        persistedVersion === 1
+          ? migrateToV2(persistedState as PersistedV1)
+          : (persistedState as Pick<CartState, 'items'>),
     },
   ),
 );
