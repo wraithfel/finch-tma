@@ -1,7 +1,8 @@
-'use client'
+"use client";
 
 import React from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { Card } from '@telegram-apps/telegram-ui'
 import { CardCell } from '@telegram-apps/telegram-ui/dist/components/Blocks/Card/components/CardCell/CardCell'
 import { CardChip } from '@telegram-apps/telegram-ui/dist/components/Blocks/Card/components/CardChip/CardChip'
@@ -25,9 +26,12 @@ export default function MenuCard({
   subtitle,
   queryCat,
 }: MenuCardProps) {
+  const pathname = usePathname()
+  const base = pathname.startsWith('/drinks') ? 'drinks' : 'menu'
+
   return (
     <Link
-      href={{ pathname: `/menu/${id}`, query: { cat: queryCat } }}
+      href={{ pathname: `/${base}/${id}`, query: { cat: queryCat } }}
       className="block w-full"
     >
       <Card
