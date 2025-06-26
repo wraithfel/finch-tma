@@ -386,7 +386,7 @@ export const drinksData: Menu = {
     },
     {
       key: "non_alcoholic",
-      name: "Безалкогольное",
+      name: "Б/А",
       items: [
         {
           id: "estrella_na",

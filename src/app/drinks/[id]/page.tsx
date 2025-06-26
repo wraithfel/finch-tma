@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import type { MenuItem } from '@/lib/types/menu';
 import { drinksData } from '../data';
-import DrinkClient from './DrinkClient';
+import DrinkClient from '../../../components/DrinkClient';
 
 const allDrinks: MenuItem[] = drinksData.categories.flatMap(c => c.items);
 
