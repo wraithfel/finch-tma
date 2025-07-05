@@ -16,7 +16,7 @@ export const drinksData: Menu = {
           method:
             "В высокий стакан со льдом налейте молоко, затем аккуратно влейте эспрессо сверху для красивого градиента.",
           image: "/images/drinks/cold/iced_latte.jpeg",
-          chip: "320 ₽",
+          chip: "390 ₽",
         },
         {
           id: "iced_matcha",
@@ -28,7 +28,7 @@ export const drinksData: Menu = {
           method:
             "Матчу взбить тёплой водой до однородности, вылить в стакан со льдом и молоком.",
           image: "/images/drinks/cold/iced_matcha.jpg",
-          chip: "340 ₽",
+          chip: "440 ₽",
         },
         {
           id: "espresso_tonic",
@@ -40,7 +40,7 @@ export const drinksData: Menu = {
           method:
             "В стакан со льдом налить тоник и кордиал, сверху аккуратно влить эспрессо.",
           image: "/images/drinks/cold/espresso_tonic.jpg",
-          chip: "320 ₽",
+          chip: "440 ₽",
         },
         {
           id: "matcha_tonic",
@@ -52,7 +52,7 @@ export const drinksData: Menu = {
           method:
             "В стакан со льдом налить тоник и кордиал, добавить сок лайма, сверху вылить разведённую матчу.",
           image: "/images/drinks/cold/matcha_tonic.jpg",
-          chip: "330 ₽",
+          chip: "450 ₽",
         },
         {
           id: "coldbrew_tonic",
@@ -64,7 +64,7 @@ export const drinksData: Menu = {
           method:
             "В стакан со льдом налить тоник и сироп, сверху добавить колд‑брю.",
           image: "/images/drinks/cold/coldbrew_tonic.jpg",
-          chip: "350 ₽",
+          chip: "490 ₽",
         },
         {
           id: "coldbrew",
@@ -76,7 +76,7 @@ export const drinksData: Menu = {
           method:
             "Подаётся охлаждённым, при желании со льдом.",
           image: "/images/drinks/cold/coldbrew.jpg",
-          chip: "300 ₽",
+          chip: "390 ₽",
         },
         {
           id: "classic_bumble",
@@ -87,43 +87,21 @@ export const drinksData: Menu = {
           ingredients: ["Апельсиновый или грейпфрутовый фреш", "Эспрессо", "Кордиал", "Лёд"],
           method:
             "В стакан со льдом налить фреш, добавить кордиал, сверху аккуратно вылить эспрессо.",
-          image: "/images/drinks/cold/bumble.jpg",
-          chip: "340 ₽",
-        },
-        {
-          id: "cherry_almond_lemonade",
-          name: "Лимонад вишня‑миндаль",
-          shortDescription: "Вишня, газвода, миндальная эспума",
-          fullDescription:
-            "Искрящийся вишнёвый лимонад с воздушной шапкой миндальной эспумы.",
-          ingredients: [
-            "Вишнёвый кордиал",
-            "Газированная вода",
-            "Миндальная эспума (миндальный сироп, сухой белок)",
-            "Вишня сублимированная",
-            "Лёд",
-          ],
-          method:
-            "Кордиал и газводу смешать со льдом, сверху отсадить миндальную эспуму и украсить вишней.",
-          image: "/images/drinks/cold/cherry_almond_lemonade.jpg",
-          chip: "380 ₽",
+          image: "/images/drinks/cold/bumble.jpeg",
+          chip: "490 ₽",
         },
         {
           id: "fresh_juice",
           name: "Фреш",
-          shortDescription: "Апельсин / Грейпфрут / Яблоко / Морковь / Сельдерей",
+          shortDescription: "Свежевыжатый сок",
           fullDescription:
-            "Свежевыжатый сок из выбранного фрукта или овоща. Без добавления сахара и воды.",
+            "Свежевыжатый сок из выбранного фрукта или овоща. Без добавления сахара и воды. Доступные вариации: Апельсин / Грейпфрут / Яблоко / Морковь / Сельдерей",
           ingredients: [
-            "Апельсин",
-            "Грейпфрут",
-            "Яблоко",
-            "Морковь",
-            "Сельдерей",
+            "Выбранный фрукт/овощ",
           ],
           method: "Фрукты/овощи выжимаются на шнековой или центробежной соковыжималке, подаются немедленно.",
-          image: "/images/drinks/cold/fresh.jpg",
-          chip: "350 ₽",
+          image: "/images/drinks/cold/fresh.jpeg",
+          chip: "420 ₽",
         },
       ],
       extras: [],
@@ -366,7 +344,7 @@ export const drinksData: Menu = {
         ingredients: ["Зеленый чай", "Бутоны жасмина"],
         method:
           "6 г в фильтр-пакет, залить 95 °C кипятком, настоять 5–7 мин, пакет оставить в чайнике.",
-        image: "/images/drinks/tea/tea.jpg",
+        image: "/images/drinks/tea/tea.jpeg",
         chip: "390 ₽",
       },
       {
@@ -378,7 +356,7 @@ export const drinksData: Menu = {
         ingredients: ["Улун Те Гуань Инь"],
         method:
           "6 г листьев в пакет, залить 95 °C, настаивать 5–7 мин, пакет оставить в чайнике.",
-        image: "/images/drinks/tea/tea.jpg",
+        image: "/images/drinks/tea/tea.jpeg",
         chip: "390 ₽",
       },
       {
@@ -390,7 +368,7 @@ export const drinksData: Menu = {
         ingredients: ["Улун Габа"],
         method:
           "7 г листа в пакет, залить 95 °C, настоять 5–7 мин, пакет оставить.",
-        image: "/images/drinks/tea/tea.jpg",
+        image: "/images/drinks/tea/tea.jpeg",
         chip: "390 ₽",
       },
       {
@@ -402,7 +380,7 @@ export const drinksData: Menu = {
         ingredients: ["Красный копченый чай"],
         method:
           "6 г в пакет, залить 95 °C, настоять 5–7 мин, пакет оставить в чайнике.",
-        image: "/images/drinks/tea/tea.jpg",
+        image: "/images/drinks/tea/tea.jpeg",
         chip: "390 ₽",
       },
       {
@@ -414,7 +392,7 @@ export const drinksData: Menu = {
         ingredients: ["Красные иглы"],
         method:
           "6 г в пакет, залить 95 °C, настоять 5–7 мин, пакет оставить.",
-        image: "/images/drinks/tea/tea.jpg",
+        image: "/images/drinks/tea/tea.jpeg",
         chip: "390 ₽",
       },
       {
@@ -425,7 +403,7 @@ export const drinksData: Menu = {
           "Шу пуэр выдерживают, как вино: настой тёмный, маслянистый и древесный. У хороших — выраженный бальзамический профиль.",
         ingredients: ["Шу пуэр"],
         method: "7 г пуэра залить 95 °C, настоять 3–5 мин, пакет оставить.",
-        image: "/images/drinks/tea/tea.jpg",
+        image: "/images/drinks/tea/tea.jpeg",
         chip: "390 ₽",
       },
       {
@@ -437,7 +415,7 @@ export const drinksData: Menu = {
         ingredients: ["Ассам"],
         method:
           "6 г в пакет, залить 95 °C, настоять 4–6 мин, пакет оставить.",
-        image: "/images/drinks/tea/tea.jpg",
+        image: "/images/drinks/tea/tea.jpeg",
         chip: "390 ₽",
       },
       {
@@ -449,7 +427,7 @@ export const drinksData: Menu = {
         ingredients: ["Лемонграсс"],
         method:
           "5 г травы залить 95 °C, настаивать 5–7 мин, траву можно оставить.",
-        image: "/images/drinks/tea/tea.jpg",
+        image: "/images/drinks/tea/tea.jpeg",
         chip: "350 ₽",
       },
       {
@@ -461,7 +439,7 @@ export const drinksData: Menu = {
         ingredients: ["Ройбос"],
         method:
           "6 г, залить 95 °C, настаивать 5–7 мин, можно оставить листовой остаток.",
-        image: "/images/drinks/tea/tea.jpg",
+        image: "/images/drinks/tea/tea.jpeg",
         chip: "350 ₽",
       },
       {
@@ -473,7 +451,7 @@ export const drinksData: Menu = {
         ingredients: ["Цветки хризантемы"],
         method:
           "5 г цветков, залить 95 °C, настаивать 5–7 мин, можно повторно заваривать.",
-        image: "/images/drinks/tea/tea.jpg",
+        image: "/images/drinks/tea/tea.jpeg",
         chip: "350 ₽",
       },
     ],
@@ -485,33 +463,33 @@ export const drinksData: Menu = {
       items: [
         {
           id: "estrella_na",
-          name: "Estrella Damm Lager Б/А 0,5",
+          name: "Estrella Damm Lager Б/А 0,33",
           shortDescription: "Вода, хлебный и ячменный солод",
-          fullDescription: "Светлое фильтрованное испанское пиво 0.5л, янтарно-золотистое, с легкой пеной и свежим вкусом хлебных зерен.",
+          fullDescription: "Светлое фильтрованное испанское пиво 0.33л, янтарно-золотистое, с легкой пеной и свежим вкусом хлебных зерен.",
           ingredients: ["Вода", "Хлебный солод", "Ячменный солод"],
           method: "Подаётся охлаждённым 4–6°C. Содержит минимальное количество алкоголя.",
-          image: "/images/drinks/non_alc/estrella.jpg",
-          chip: "380 ₽",
+          image: "/images/drinks/non_alc/estrella.jpeg",
+          chip: "420 ₽",
         },
         {
           id: "albali_rose_na",
           name: "Vina Albali Rosé (игристое)",
           shortDescription: "Гарнача, Испания (Кастилия)",
-          fullDescription: "Безалкогольное розе: ягоды, красные фрукты, цитрусовое послевкусие.",
+          fullDescription: "Безалкогольное розе: ягоды, красные фрукты, цитрусовое послевкусие. Порция - 0.125мл",
           ingredients: ["Гарнача"],
           method: "Охладить до 6–8°C. К рыбе и морепродуктам.",
-          image: "/images/drinks/non_alc/albali_rose.jpg",
-          chip: "990 ₽",
+          image: "/images/drinks/non_alc/igr.jpeg",
+          chip: "490 ₽",
         },
         {
           id: "hans_baer_riesling_na",
           name: "Hans Baer Riesling (безалк.)",
           shortDescription: "Рислинг, Германия (Рейнгессен)",
-          fullDescription: "Безалкогольный рислинг: ноты яблок, груш, цветочные оттенки.",
+          fullDescription: "Безалкогольный рислинг: ноты яблок, груш, цветочные оттенки. Порция - 0.125мл",
           ingredients: ["Рислинг"],
           method: "Охладить до 6–8°C. К салатам, морепродуктам.",
-          image: "/images/drinks/non_alc/hans_baer_riesling.jpg",
-          chip: "990 ₽",
+          image: "/images/drinks/non_alc/riesling.jpg",
+          chip: "550 ₽",
         },
       ],
       extras: [],
