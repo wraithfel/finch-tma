@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import DefaultHeader from '@/components/DefaultHeader'
 import NutritionCycle from '@/components/NutritionCycle'
 import { useCart } from '@/lib/stores/cartStore'
@@ -93,6 +94,13 @@ export default function DrinkClient({ item }: { item: MenuItem }) {
       </main>
 
       <div className="sticky bottom-0 flex gap-3 p-4 bg-[var(--tg-theme-bg-color)]/80 backdrop-blur-md">
+        <Link
+          href={`/ask?drink=${item.id}`}
+          className="flex-1 text-center py-3 rounded-full font-bold bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white shadow-lg active:scale-95 transition"
+        >
+          Спросить&nbsp;AI
+        </Link>
+
         {qty === 0 ? (
           <button
             onClick={handleAdd}

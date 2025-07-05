@@ -6,10 +6,11 @@ import DefaultHeader from '@/components/DefaultHeader';
 import ChatMessage from '@/components/ChatMessage';
 import { useChat } from '@/lib/stores/chatStore';
 import { menuData } from '@/app/menu/data';
+import { drinksData } from '@/app/drinks/data';
 
 export default function AskPage() {
   const params = useSearchParams();
-  const initialDish = params.get('dish') ?? undefined;
+  const initialId = params.get('dish') ?? params.get('drink') ?? undefined;
 
   const { messages, add, reset } = useChat();
   const [input, setInput] = useState('');
@@ -17,8 +18,8 @@ export default function AskPage() {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    reset(initialDish);
-  }, [initialDish, reset]);
+    reset(initialId);
+  }, [initialId, reset]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -33,15 +34,16 @@ export default function AskPage() {
     setLoading(true);
 
     const dish =
-      initialDish &&
-      menuData.categories.flatMap(c => c.items).find(i => i.id === initialDish);
+      initialId &&
+      (
+        menuData.categories.flatMap(c => c.items).find(i => i.id === initialId) ??
+        drinksData.categories.flatMap(c => c.items).find(i => i.id === initialId)
+      );
 
     const prompt = [
       {
         role: 'system' as const,
-        content: `Ты — приветливый наставник официанта в Finch. Отвечай кратко и дружелюбно.${
-          dish ? ` Стажер спрашивает про блюдо «${dish.name}».` : ''
-        }`,
+        content: `Ты — приветливый наставник официанта в Finch. Отвечай кратко и дружелюбно.${dish ? ` Стажер спрашивает про блюдо «${dish.name}».` : ''}`,
       },
       ...(dish
         ? [
@@ -70,9 +72,8 @@ export default function AskPage() {
 
       const { content } = (await res.json()) as { content: string };
       add({ role: 'assistant', content });
-    } catch (err) {
+    } catch {
       add({ role: 'assistant', content: 'Не удалось связаться с сервером.' });
-      console.log(err);
     } finally {
       setLoading(false);
     }
