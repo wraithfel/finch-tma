@@ -7,15 +7,20 @@ import ChatMessage from '@/components/ChatMessage';
 import { useChat } from '@/lib/stores/chatStore';
 import { menuData } from '@/app/menu/data';
 import { drinksData } from '@/app/drinks/data';
+import { useStats } from '@/lib/stores/statsStore';
+import { useTelegramUser } from '@/lib/hooks/useTelegramUser';
 
 export default function AskPage() {
   const params = useSearchParams();
   const initialId = params.get('dish') ?? params.get('drink') ?? undefined;
 
-  const { messages, add, reset } = useChat();
+  const { messages, add, reset, threadId } = useChat();
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
+
+  const { userData } = useTelegramUser();
+  const incQuestions = useStats((s) => s.incQuestions);
 
   useEffect(() => {
     reset(initialId);
@@ -36,32 +41,22 @@ export default function AskPage() {
     const dish =
       initialId &&
       (
-        menuData.categories.flatMap(c => c.items).find(i => i.id === initialId) ??
-        drinksData.categories.flatMap(c => c.items).find(i => i.id === initialId)
+        menuData.categories.flatMap((c) => c.items).find((i) => i.id === initialId) ??
+        drinksData.categories.flatMap((c) => c.items).find((i) => i.id === initialId)
       );
 
-    const prompt = [
-      {
-        role: 'system' as const,
-        content: `Ты — приветливый наставник официанта в Finch. Отвечай кратко и дружелюбно.${dish ? ` Стажер спрашивает про блюдо «${dish.name}».` : ''}`,
-      },
-      ...(dish
-        ? [
-            {
-              role: 'system' as const,
-              content: `Полные данные о блюде (JSON):\n${JSON.stringify(dish, null, 2)}`,
-            },
-          ]
-        : []),
-      ...messages,
-      userMsg,
-    ];
+    const payload = {
+      message: dish
+        ? `Вопрос о «${dish.name}»: ${input.trim()}\n\n${JSON.stringify(dish, null, 2)}`
+        : input.trim(),
+      threadId,
+    };
 
     try {
-      const res = await fetch('/api/chat', {
+      const res = await fetch('/api/assistant', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: prompt }),
+        body: JSON.stringify(payload),
       });
 
       if (!res.ok) {
@@ -70,8 +65,14 @@ export default function AskPage() {
         return;
       }
 
-      const { content } = (await res.json()) as { content: string };
-      add({ role: 'assistant', content });
+      const { answer, threadId: newThreadId } = (await res.json()) as {
+        answer: string;
+        threadId: string;
+      };
+      add({ role: 'assistant', content: answer });
+      useChat.setState({ threadId: newThreadId });
+
+      if (userData) incQuestions(userData.id);
     } catch {
       add({ role: 'assistant', content: 'Не удалось связаться с сервером.' });
     } finally {
@@ -92,7 +93,7 @@ export default function AskPage() {
       </main>
 
       <form
-        onSubmit={e => {
+        onSubmit={(e) => {
           e.preventDefault();
           send();
         }}
@@ -100,7 +101,7 @@ export default function AskPage() {
       >
         <input
           value={input}
-          onChange={e => setInput(e.target.value)}
+          onChange={(e) => setInput(e.target.value)}
           placeholder="Спросите что-нибудь…"
           className="flex-1 rounded-full px-4 py-3 text-sm bg-[var(--tg-theme-secondary-bg-color)] outline-none"
           disabled={loading}
