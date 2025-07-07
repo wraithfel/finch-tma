@@ -1,24 +1,29 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { askAssistant } from '@/lib/openai/assistant';
+import { filterUnknownDishes, stripCitations } from '@/lib/utils/menu-helpers';
 
-export const runtime = 'edge';
-
-interface Payload {
-  message: string;
-  threadId?: string;
-}
-
-export async function POST(req: NextRequest) {
+export async function POST(req: Request) {
   try {
-    const { message, threadId }: Payload = await req.json();
-    if (!message) {
-      return NextResponse.json({ error: '`message` is required' }, { status: 400 });
-    }
+    const { message, threadId } = await req.json();
 
-    const { answer, threadId: newThreadId } = await askAssistant(message, threadId);
+    const {
+      answer,
+      threadId: newThreadId,
+    } = await askAssistant(message as string, threadId as string | undefined);
 
-    return NextResponse.json({ answer, threadId: newThreadId }, { status: 200 });
-  } catch {
-    return NextResponse.json({ error: 'Assistant error' }, { status: 500 });
+    let cleaned = stripCitations(answer);
+
+    cleaned = filterUnknownDishes(cleaned);
+
+    return NextResponse.json(
+      { answer: cleaned, threadId: newThreadId },
+      { status: 200 },
+    );
+  } catch (error) {
+    console.error('[assistant-route]', error);
+    return NextResponse.json(
+      { error: 'Ошибка сервера Assistant' },
+      { status: 500 },
+    );
   }
 }
