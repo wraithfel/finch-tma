@@ -3,7 +3,7 @@ import { askAssistant } from '@/lib/openai/assistant';
 
 function cleanText(text: string): string {
   return text
-    .replace(/【\d+:\d+†source】/g, '')
+    .replace(/【[^】]+†[^】]+】/g, '')
     .replace(/https?:\/\/\S+/g, '')
     .trim();
 }
