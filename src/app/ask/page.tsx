@@ -65,7 +65,7 @@ export default function AskPage() {
         return;
       }
 
-      const { answer, threadId: newThreadId } = (await res.json()) as {
+      const { answer, threadId: newThreadId } = await res.json() as {
         answer: string;
         threadId: string;
       };
@@ -88,7 +88,21 @@ export default function AskPage() {
         {messages.map((m, i) => (
           <ChatMessage key={i} {...m} />
         ))}
-        {loading && <ChatMessage role="assistant" content="⌛️ ..." />}
+        {loading && (
+          <ChatMessage
+            role="assistant"
+            content={
+              <span className="inline-flex items-center gap-2">
+                <img
+                  src="/my-loader.svg"
+                  alt=""
+                  className="h-12 w-12 animate-spin"
+                />
+                Думаю...
+              </span>
+            }
+          />
+        )}
         <div ref={bottomRef} />
       </main>
 

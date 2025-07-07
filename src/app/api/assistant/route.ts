@@ -5,7 +5,6 @@ function cleanText(text: string): string {
   return text
     .replace(/【[^】]+†[^】]+】/g, '')
     .replace(/https?:\/\/\S+/g, '')
-    .trim();
 }
 
 export async function POST(req: Request) {
