@@ -1,18 +1,26 @@
 import { NextResponse } from 'next/server';
 import { askAssistant } from '@/lib/openai/assistant';
 
+function cleanText(text: string): string {
+  return text
+    .replace(/【\d+:\d+†source】/g, '')
+    .replace(/https?:\/\/\S+/g, '')
+    .trim();
+}
+
 export async function POST(req: Request) {
   try {
     const { message, threadId } = await req.json();
 
-    const {
-      answer,
-      threadId: newThreadId,
-    } = await askAssistant(message as string, threadId as string | undefined);
+    const { answer, threadId: newThreadId } = await askAssistant(
+      message as string,
+      threadId as string | undefined,
+    );
 
+    const cleaned = cleanText(answer);
 
     return NextResponse.json(
-      { answer: answer, threadId: newThreadId },
+      { answer: cleaned, threadId: newThreadId },
       { status: 200 },
     );
   } catch (error) {
@@ -23,3 +31,4 @@ export async function POST(req: Request) {
     );
   }
 }
+

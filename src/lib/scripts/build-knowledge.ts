@@ -1,11 +1,11 @@
 /**
- * scripts/build-knowledge.ts
  * Генерирует из menuData и drinksData два .md-файла для Assistants API.
  */
 import fs from 'fs/promises';
 import path from 'path';
 import { menuData } from '@/app/menu/data'; 
-import { drinksData } from '@/app/drinks/data'; 
+import { drinksData } from '@/app/drinks/data';
+import { saucesData } from '../utils/constants'; 
 
 
 async function main() {
@@ -23,6 +23,13 @@ async function main() {
     path.join(out, 'finch_drinks.md'),
     '# Напитки Finch\n\n```json\n' +
       JSON.stringify(drinksData, null, 2) +
+    '\n```'
+  );
+
+  await fs.writeFile(
+    path.join(out, 'finch_sauces.md'),
+    '# Соусы Finch\n\n```json\n' +
+      JSON.stringify(saucesData, null, 2) +
     '\n```'
   );
 
