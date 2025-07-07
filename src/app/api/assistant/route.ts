@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import { askAssistant } from '@/lib/openai/assistant';
-import { filterUnknownDishes, stripCitations } from '@/lib/utils/menu-helpers';
 
 export async function POST(req: Request) {
   try {
@@ -11,12 +10,9 @@ export async function POST(req: Request) {
       threadId: newThreadId,
     } = await askAssistant(message as string, threadId as string | undefined);
 
-    let cleaned = stripCitations(answer);
-
-    cleaned = filterUnknownDishes(cleaned);
 
     return NextResponse.json(
-      { answer: cleaned, threadId: newThreadId },
+      { answer: answer, threadId: newThreadId },
       { status: 200 },
     );
   } catch (error) {
