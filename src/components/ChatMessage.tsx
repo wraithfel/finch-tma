@@ -4,13 +4,11 @@ import React from 'react';
 import clsx from 'clsx';
 
 interface ChatMessageProps {
-  role: 'user' | 'assistant';
-  content: React.ReactNode;
+  message: React.ReactNode;
+  isUser: boolean;
 }
 
-export default function ChatMessage({ role, content }: ChatMessageProps) {
-  const isUser = role === 'user';
-
+export default function ChatMessage({ message, isUser }: ChatMessageProps) {
   return (
     <div
       className={clsx(
@@ -20,7 +18,7 @@ export default function ChatMessage({ role, content }: ChatMessageProps) {
           : 'mr-auto bg-[var(--tg-theme-secondary-bg-color)] text-[var(--tg-theme-text-color)]'
       )}
     >
-      {content}
+      {message}
     </div>
   );
 }

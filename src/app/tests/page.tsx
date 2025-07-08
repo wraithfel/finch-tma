@@ -28,7 +28,7 @@ export default function TestsPage() {
   };
 
   const handleDishTest = (item: MenuItem) => {
-    console.log(`Starting dish test for ${item.id}`);
+    router.push(`/tests/composition/${item.id}`, { scroll: false });
   };
 
   const handleStartGeneral = () => {
