@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Banner, Button } from '@telegram-apps/telegram-ui';
+import { Banner } from '@telegram-apps/telegram-ui';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 
@@ -49,14 +49,16 @@ export default function SectionCard({ section, index }: SectionCardProps) {
           </div>
         }
       >
-        <Button
-          mode="outline"
-          size="s"
-          className="backdrop-blur-lg font-semibold tracking-wide !h-8 !px-4 !mt-12 shadow-md !text-white !border-2 border-white"
+        <button
           onClick={() => router.push(section.onClickRoute)}
+          className="
+            backdrop-blur-lg font-semibold tracking-wide
+            h-8 px-4 mt-12 shadow-md text-white border-2 border-white
+            rounded-full outline-none active:opacity-75
+          "
         >
           {section.buttonText}
-        </Button>
+        </button>
       </Banner>
     </motion.div>
   );
