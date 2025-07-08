@@ -1,28 +1,22 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react'
-import {
-  useParams,
-  notFound,
-  useRouter,
-} from 'next/navigation'
+import { useParams, notFound, useRouter } from 'next/navigation'
 import DefaultHeader from '@/components/DefaultHeader'
 import ChatMessage from '@/components/ChatMessage'
 import { menuData } from '@/app/menu/data'
 import { saucesData } from '@/lib/utils/constants'
 import type { MenuItem, Sauce } from '@/lib/types/menu'
+import { useTelegramUser } from '@/lib/hooks/useTelegramUser'
+import { useStats } from '@/lib/stores/statsStore'
 
 export default function CompositionChat() {
   const { id } = useParams<{ id: string }>()
   const router = useRouter()
-
   if (!id) notFound()
 
-  const category = menuData.categories.find(c =>
-    c.items.some(i => i.id === id)
-  )
+  const category = menuData.categories.find(c => c.items.some(i => i.id === id))
   if (!category) notFound()
-
   const dish = category.items.find(i => i.id === id) as MenuItem
 
   const sauceList: Sauce[] = (dish.sauceIds ?? [])
@@ -45,24 +39,33 @@ export default function CompositionChat() {
   const [threadId, setThreadId] = useState<string>()
   const endRef = useRef<HTMLDivElement>(null)
 
+  const { userData } = useTelegramUser()
+  const incTests = useStats(s => s.incTests)
+
   const sendToAssistant = async (answer: string) => {
     setLoading(true)
-    const res = await fetch('/api/assistant/evaluate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        dishName: dish.name,
-        ingredients: dish.ingredients,
-        sauceIngredients,
-        userAnswer: answer,
-        threadId
+    try {
+      const res = await fetch('/api/assistant/evaluate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          dishName: dish.name,
+          ingredients: dish.ingredients,
+          sauceIngredients,
+          userAnswer: answer,
+          threadId
+        })
       })
-    })
-    const data = await res.json()
-    setThreadId(data.threadId)
-    setMessages(prev => [...prev, { message: data.feedback.trim(), isUser: false }])
-    setCompleted(true)
-    setLoading(false)
+      const data = await res.json()
+      setThreadId(data.threadId)
+      setMessages(prev => [...prev, { message: data.feedback.trim(), isUser: false }])
+      setCompleted(true)
+      if (userData) incTests(userData.id)
+    } catch {
+      setMessages(prev => [...prev, { message: 'Ошибка сервера', isUser: false }])
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleSend = () => {
