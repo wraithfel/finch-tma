@@ -23,9 +23,8 @@ export default function SectionCard({ section, index }: SectionCardProps) {
 
   return (
     <motion.div
-      key={section.key}
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, marginTop: 30 }}
+      animate={{ opacity: 1, marginTop: 0 }}
       transition={{ delay: index * 0.05, duration: 0.35 }}
       className="w-full"
     >
@@ -33,11 +32,7 @@ export default function SectionCard({ section, index }: SectionCardProps) {
         type="section"
         header={section.header}
         subheader={section.subheader}
-        className="
-          relative w-full
-          h-48 sm:h-64 md:h-80 lg:h-[500px]
-          overflow-hidden rounded-2xl shadow-xl
-        "
+        className="relative w-full h-48 sm:h-64 md:h-80 lg:h-[500px] overflow-hidden rounded-2xl shadow-xl"
         background={
           <div className="absolute inset-0">
             <Image
@@ -45,6 +40,8 @@ export default function SectionCard({ section, index }: SectionCardProps) {
               alt={section.header}
               fill
               priority
+              loading="eager"
+              decoding="sync"
               className="object-cover object-center"
               sizes="(max-width: 768px) 100vw, 50vw"
             />
@@ -55,10 +52,7 @@ export default function SectionCard({ section, index }: SectionCardProps) {
         <Button
           mode="outline"
           size="s"
-          className="
-            backdrop-blur-lg font-semibold tracking-wide
-            !h-8 !px-4 !mt-12 shadow-md !text-white !border-2 border-white
-          "
+          className="backdrop-blur-lg font-semibold tracking-wide !h-8 !px-4 !mt-12 shadow-md !text-white !border-2 border-white"
           onClick={() => router.push(section.onClickRoute)}
         >
           {section.buttonText}
