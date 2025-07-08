@@ -1,38 +1,52 @@
-'use client';
+'use client'
 
-import React, { useEffect, useRef, useState } from 'react';
-import { useParams, notFound, useRouter } from 'next/navigation';
-import DefaultHeader from '@/components/DefaultHeader';
-import ChatMessage  from '@/components/ChatMessage';
-import { menuData } from '@/app/menu/data';
-import type { MenuItem, Sauce } from '@/lib/types/menu';
+import React, { useEffect, useRef, useState } from 'react'
+import {
+  useParams,
+  notFound,
+  useRouter,
+} from 'next/navigation'
+import DefaultHeader from '@/components/DefaultHeader'
+import ChatMessage from '@/components/ChatMessage'
+import { menuData } from '@/app/menu/data'
+import { saucesData } from '@/lib/utils/constants'
+import type { MenuItem, Sauce } from '@/lib/types/menu'
 
 export default function CompositionChat() {
-  const { id } = useParams<{ id: string }>();
-  if (!id) notFound();
+  const { id } = useParams<{ id: string }>()
+  const router = useRouter()
 
-  const dish: MenuItem | undefined = menuData.categories
-    .flatMap(c => c.items)
-    .find(i => i.id === id);
-  if (!dish) notFound();
+  if (!id) notFound()
 
-  const sauceIngredients: string[] = (dish.sauceIds ?? []).flatMap(sId => {
-    const sauce = (menuData as { sauces?: Sauce[] }).sauces?.find(s => s.id === sId);
-    return sauce ? sauce.ingredients : [];
-  });
+  const category = menuData.categories.find(c =>
+    c.items.some(i => i.id === id)
+  )
+  if (!category) notFound()
 
-  const [messages, setMessages] = useState<{ sender: 'bot' | 'user'; text: string }[]>([
-    { sender: 'bot', text: `Расскажи мне о составе блюда ${dish.name}` }
-  ]);
-  const [input, setInput] = useState('');
-  const [completed, setCompleted] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [threadId, setThreadId] = useState<string | undefined>();
-  const endRef = useRef<HTMLDivElement>(null);
-  const router = useRouter();
+  const dish = category.items.find(i => i.id === id) as MenuItem
+
+  const sauceList: Sauce[] = (dish.sauceIds ?? [])
+    .map(sId => saucesData.find(s => s.id === sId))
+    .filter((s): s is Sauce => Boolean(s))
+
+  const sauceNames = sauceList.map(s => s.name)
+  const sauceIngredients = sauceList.flatMap(s => s.ingredients)
+
+  const initialPrompt =
+    `Расскажи мне о составе блюда ${dish.name}` +
+    (sauceNames.length ? ` и соуса ${sauceNames.join(', ')}` : '')
+
+  const [messages, setMessages] = useState<{ message: string; isUser: boolean }[]>([
+    { message: initialPrompt, isUser: false }
+  ])
+  const [input, setInput] = useState('')
+  const [completed, setCompleted] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [threadId, setThreadId] = useState<string>()
+  const endRef = useRef<HTMLDivElement>(null)
 
   const sendToAssistant = async (answer: string) => {
-    setLoading(true);
+    setLoading(true)
     const res = await fetch('/api/assistant/evaluate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -43,40 +57,54 @@ export default function CompositionChat() {
         userAnswer: answer,
         threadId
       })
-    });
-    const data = await res.json();
-    setThreadId(data.threadId);
-    setMessages(prev => [...prev, { sender: 'bot', text: data.feedback }]);
-    setCompleted(true);
-    setLoading(false);
-  };
+    })
+    const data = await res.json()
+    setThreadId(data.threadId)
+    setMessages(prev => [...prev, { message: data.feedback.trim(), isUser: false }])
+    setCompleted(true)
+    setLoading(false)
+  }
 
   const handleSend = () => {
-    if (completed || loading) return;
-    const value = input.trim();
-    if (!value) return;
-    setMessages(prev => [...prev, { sender: 'user', text: value }]);
-    setInput('');
-    sendToAssistant(value);
-  };
+    if (completed || loading) return
+    const text = input.trim()
+    if (!text) return
+    setMessages(prev => [...prev, { message: text, isUser: true }])
+    setInput('')
+    sendToAssistant(text)
+  }
 
   useEffect(() => {
-    endRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+    endRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [messages, loading])
 
   return (
     <div className="flex flex-col h-screen">
       <DefaultHeader />
       <div className="flex-1 overflow-auto p-4">
-        {messages.map((m, i) => (
-          <ChatMessage key={i} message={m.text} isUser={m.sender === 'user'} />
-        ))}
+        <div className="flex flex-col space-y-4">
+          {messages.map((m, i) => (
+            <ChatMessage key={i} message={m.message} isUser={m.isUser} />
+          ))}
+          {loading && !completed && (
+            <ChatMessage
+              key="loading"
+              isUser={false}
+              message={
+                <span className="inline-flex items-center gap-2">
+                  <img src="/my-loader.svg" alt="" className="h-12 w-12 animate-spin" />
+                  Думаю…
+                </span>
+              }
+            />
+          )}
+        </div>
         <div ref={endRef} />
       </div>
       {completed ? (
         <div className="flex p-4 border-t">
           <button
-            onClick={() => router.push('/menu')}
+            onClick={() => router.back()}
             className="mx-auto px-4 py-2 bg-blue-600 text-white rounded"
           >
             К&nbsp;блюдам
@@ -85,8 +113,8 @@ export default function CompositionChat() {
       ) : (
         <form
           onSubmit={e => {
-            e.preventDefault();
-            handleSend();
+            e.preventDefault()
+            handleSend()
           }}
           className="flex p-4 border-t"
         >
@@ -108,5 +136,5 @@ export default function CompositionChat() {
         </form>
       )}
     </div>
-  );
+  )
 }

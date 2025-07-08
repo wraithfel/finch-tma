@@ -10,3 +10,9 @@ export function toHex(
   if (!color) return '#000000' as `#${string}`; 
   return typeof color === 'string' ? color : rgbToHex(color);
 }
+
+export function cleanText(text: string): string {
+  return text
+    .replace(/【[^】]+†[^】]+】/g, '')
+    .replace(/https?:\/\/\S+/g, '')
+}

@@ -1,11 +1,6 @@
 import { NextResponse } from 'next/server';
 import { askAssistant } from '@/lib/openai/assistant';
-
-function cleanText(text: string): string {
-  return text
-    .replace(/【[^】]+†[^】]+】/g, '')
-    .replace(/https?:\/\/\S+/g, '')
-}
+import { cleanText } from '@/lib/utils/converters';
 
 export async function POST(req: Request) {
   try {

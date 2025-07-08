@@ -1,20 +1,54 @@
 import { NextResponse } from 'next/server'
 import { askAssistant } from '@/lib/openai/assistant'
+import { cleanText } from '@/lib/utils/converters'
 
-function buildPrompt(dishName: string, ingredients: string[], sauceIngredients: string[], userAnswer: string) {
-  const base = `Пользователь отвечает на вопрос: "Расскажи мне о составе блюда ${dishName}".`
-  const meds = `Правильный состав блюда: ${ingredients.join(', ')}.`
-  const sauce = sauceIngredients.length
-    ? `Правильный состав соуса: ${sauceIngredients.join(', ')}.`
+interface EvaluateRequest {
+  dishName: string
+  ingredients?: string[]
+  sauceNames?: string[]
+  sauceIngredients?: string[]
+  userAnswer: string
+  threadId?: string
+}
+
+function buildPrompt(
+  dishName: string,
+  ingredients: string[],
+  sauceNames: string[],
+  sauceIngredients: string[],
+  userAnswer: string
+) {
+  const base = `Пользователь отвечает на вопрос: "Расскажи мне о составе блюда ${dishName}, указав все ингредиенты блюда и каждого соуса."`
+  const dishPart = `Правильный состав блюда: ${ingredients.join(', ')} и соусы и их состав, если есть в блюде.`
+  const saucePart = sauceNames.length
+    ? `; соусы: ${sauceNames.join(', ')} с ингредиентами ${sauceIngredients.join(', ')}`
     : ''
   const ua = `Пользователь ответил: "${userAnswer}".`
-  const instr = `Оцени, как живой человек: если всё верно — скажи что всё правильно и похвали; если неточности — мягко укажи их и назови верный состав.`
-  return [base, meds, sauce, ua, instr].filter(Boolean).join(' ')
+  const instr =
+    'Оцени, как живой человек: если всё верно — похвали; если есть неточности — мягко укажи их и назови верный состав блюда и соусов.'
+  return [base, dishPart + saucePart + '.', ua, instr].filter(Boolean).join(' ')
 }
 
 export async function POST(req: Request) {
-  const { dishName, ingredients, sauceIngredients, userAnswer, threadId } = await req.json()
-  const prompt = buildPrompt(dishName, ingredients, sauceIngredients, userAnswer)
+  const {
+    dishName,
+    ingredients = [],
+    sauceNames = [],
+    sauceIngredients = [],
+    userAnswer,
+    threadId
+  } = (await req.json()) as EvaluateRequest
+
+  const prompt = buildPrompt(
+    dishName,
+    ingredients,
+    sauceNames,
+    sauceIngredients,
+    userAnswer
+  )
   const { answer, threadId: newThreadId } = await askAssistant(prompt, threadId)
-  return NextResponse.json({ feedback: answer.trim(), threadId: newThreadId })
+  return NextResponse.json({
+    feedback: cleanText(answer.trim()),
+    threadId: newThreadId
+  })
 }
