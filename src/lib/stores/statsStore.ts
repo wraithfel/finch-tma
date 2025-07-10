@@ -1,6 +1,5 @@
-'use client'
 import { create } from 'zustand'
-import { persist, createJSONStorage } from 'zustand/middleware'
+import { persist } from 'zustand/middleware'
 
 export interface UserStats {
   acceptedOrders: number
@@ -12,16 +11,7 @@ export interface UserStats {
   correctPercent: number
 }
 
-interface StatsState {
-  saveGeneral: (userId: number, correctPercent: number, avgScore: number) => void
-  byUser: Record<number, UserStats>
-  incOrders: (userId: number) => void
-  incQuestions: (userId: number) => void
-  incTests: (userId: number) => void
-  addScore: (userId: number, score: number) => void
-}
-
-const defaultStats: UserStats = {
+const blankStats: UserStats = {
   acceptedOrders: 0,
   askedQuestions: 0,
   passedTests: 0,
@@ -31,51 +21,70 @@ const defaultStats: UserStats = {
   correctPercent: 0
 }
 
-function ensure(map: Record<number, UserStats>, id: number) {
-  return map[id] ?? { ...defaultStats }
+type StatsStore = {
+  byUser: Record<number, UserStats>
+  ensureUser: (id: number) => void
+  getStats: (id: number) => UserStats
+  incOrders: (id: number) => void
+  incQuestions: (id: number) => void
+  incTests: (id: number) => void
+  saveGeneral: (id: number, correctPercent: number, avgScore: number) => void
 }
 
-export const useStats = create<StatsState>()(
+export const useStats = create<StatsStore>()(
   persist(
-    set => ({
+    (set, get) => ({
       byUser: {},
+      ensureUser: id =>
+        set(state =>
+          state.byUser[id]
+            ? {}
+            : { byUser: { ...state.byUser, [id]: { ...blankStats } } }
+        ),
+      getStats: id => {
+        const { byUser } = get()
+        return byUser[id] ?? blankStats
+      },
       incOrders: id =>
         set(state => {
-          const stats = ensure(state.byUser, id)
+          const stats = { ...blankStats, ...state.byUser[id] }
           stats.acceptedOrders += 1
           return { byUser: { ...state.byUser, [id]: stats } }
         }),
       incQuestions: id =>
         set(state => {
-          const stats = ensure(state.byUser, id)
+          const stats = { ...blankStats, ...state.byUser[id] }
           stats.askedQuestions += 1
           return { byUser: { ...state.byUser, [id]: stats } }
         }),
       incTests: id =>
         set(state => {
-          const stats = ensure(state.byUser, id)
+          const stats = { ...blankStats, ...state.byUser[id] }
           stats.passedTests += 1
-          return { byUser: { ...state.byUser, [id]: stats } }
-        }),
-      addScore: (id, score) =>
-        set(state => {
-          const stats = ensure(state.byUser, id)
-          stats.answers += 1
-          stats.totalScore += score
-          stats.avgScore = stats.totalScore / stats.answers
           return { byUser: { ...state.byUser, [id]: stats } }
         }),
       saveGeneral: (id, correctPercent, avgScore) =>
         set(state => {
-          const stats = ensure(state.byUser, id)
+          const stats = { ...blankStats, ...state.byUser[id] }
+          stats.answers += 1
+          stats.totalScore += avgScore
+          stats.avgScore = Math.round(stats.totalScore / stats.answers)
           stats.correctPercent = correctPercent
-          stats.avgScore = avgScore
           return { byUser: { ...state.byUser, [id]: stats } }
         })
     }),
     {
-      name: 'stats-storage',
-      storage: createJSONStorage(() => localStorage)
+      name: 'finch-stats',
+      version: 1,
+      migrate: persisted => {
+        if (!persisted || typeof persisted !== 'object') return { byUser: {} }
+        if (!('byUser' in persisted)) return { byUser: {} }
+        const byUser: Record<number, UserStats> = {}
+        for (const [k, v] of Object.entries((persisted as any).byUser || {})) {
+          byUser[Number(k)] = { ...blankStats, ...(v as UserStats) }
+        }
+        return { byUser }
+      }
     }
   )
 )
