@@ -37,7 +37,7 @@ export default function TestsPage() {
   }
 
   const handleStartGeneral = () => {
-    console.log('Starting general test')
+    router.push('/tests/general', { scroll: false })
   }
 
   const handleBackToTests = () => {

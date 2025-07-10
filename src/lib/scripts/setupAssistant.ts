@@ -51,7 +51,7 @@ async function main(): Promise<void> {
 
   const assistant = await openai.beta.assistants.create({
     name: 'Finch Mentor',
-    model: 'gpt-4o',
+    model: 'gpt-4.1-mini',
     instructions: `
         Ты — дружелюбный и профессиональный AI-ментор официанта Finch. Твоя задача:
       отвечать на вопросы о меню, блюдах, напитках и их сочетаниях, помогает с рекомендациями, даёт описание, знает все соусы, но не выдумывает ничего, чего нет в меню.

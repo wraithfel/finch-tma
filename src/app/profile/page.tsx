@@ -1,5 +1,4 @@
 'use client'
-
 import React, { useCallback } from 'react'
 import { Avatar } from '@telegram-apps/telegram-ui'
 import DefaultHeader from '@/components/DefaultHeader'
@@ -12,7 +11,10 @@ const defaultStats: UserStats = {
   acceptedOrders: 0,
   askedQuestions: 0,
   passedTests: 0,
+  answers: 0,
+  totalScore: 0,
   avgScore: 0,
+  correctPercent: 0
 }
 
 export default function ProfilePage() {
@@ -31,7 +33,7 @@ export default function ProfilePage() {
     { label: 'Принято заказов', value: String(stats.acceptedOrders) },
     { label: 'Задано вопросов', value: String(stats.askedQuestions) },
     { label: 'Пройдено тестов', value: String(stats.passedTests) },
-    { label: 'Средний балл теста', value: `${stats.avgScore} %` },
+    { label: 'Процент правильных ответов', value: `${stats.correctPercent} %` }
   ]
 
   return (
@@ -45,7 +47,7 @@ export default function ProfilePage() {
             alt={userData.first_name}
             style={{
               borderRadius: '50%',
-              border: '3px solid var(--tg-theme-button-color)',
+              border: '3px solid var(--tg-theme-button-color)'
             }}
           />
           <h1 className="text-2xl font-extrabold text-[var(--tg-theme-text-color)]">
