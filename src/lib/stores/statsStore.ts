@@ -30,9 +30,7 @@ type StatsStore = {
   saveGeneral: (id: number, percent: number, avg: number) => void
 }
 
-type PersistedState = {
-  byUser?: Record<string, unknown>
-}
+type PersistedState = { byUser?: Record<string, unknown> }
 
 const VERSION = 2
 
@@ -67,6 +65,7 @@ export const useStats = create<StatsStore>()(
       saveGeneral: (id, percent, avg) =>
         set(state => {
           const s = { ...(state.byUser[id] ?? blankStats) }
+          s.passedTests += 1
           s.answers += 1
           s.totalScore += avg
           s.avgScore = Math.round(s.totalScore / s.answers)
@@ -79,22 +78,15 @@ export const useStats = create<StatsStore>()(
       version: VERSION,
       migrate: (persisted: unknown) => {
         const byUser: Record<number, UserStats> = {}
-
-        if (
-          typeof persisted === 'object' &&
-          persisted !== null &&
-          'byUser' in persisted
-        ) {
+        if (typeof persisted === 'object' && persisted && 'byUser' in persisted) {
           const raw = (persisted as PersistedState).byUser ?? {}
-
           Object.entries(raw).forEach(([key, value]) => {
-            if (typeof value === 'object' && value !== null) {
+            if (typeof value === 'object' && value) {
               const partial = value as Partial<UserStats>
               byUser[Number(key)] = { ...blankStats, ...partial }
             }
           })
         }
-
         return { byUser }
       }
     }

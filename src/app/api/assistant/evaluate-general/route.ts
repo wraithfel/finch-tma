@@ -21,7 +21,7 @@ export async function POST(req: Request) {
   const { answer, threadId: newThreadId } = await askAssistant(prompt, threadId)
 
   const cleaned = cleanText(answer.trim())
-  const m = cleaned.match(/(?:^|\s)(10|[0-9])(?:[.,\s]|$)/)
+  const m = cleaned.match(/(?:^|\s)(10|\d)(?:[.,\/\s]|$)/)
   const score = m ? Number(m[1]) : 0
 
   return NextResponse.json({
