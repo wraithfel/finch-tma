@@ -30,33 +30,44 @@ type StatsStore = {
   saveGeneral: (id: number, percent: number, avg: number) => void
 }
 
+type PersistedState = {
+  byUser?: Record<string, unknown>
+}
+
+const VERSION = 2
+
 export const useStats = create<StatsStore>()(
   persist(
     (set, get) => ({
       byUser: {},
+
       getStats: id => get().byUser[id] ?? blankStats,
+
       incOrders: id =>
         set(state => {
           const s = { ...(state.byUser[id] ?? blankStats) }
-          s.acceptedOrders++
+          s.acceptedOrders += 1
           return { byUser: { ...state.byUser, [id]: s } }
         }),
+
       incQuestions: id =>
         set(state => {
           const s = { ...(state.byUser[id] ?? blankStats) }
-          s.askedQuestions++
+          s.askedQuestions += 1
           return { byUser: { ...state.byUser, [id]: s } }
         }),
+
       incTests: id =>
         set(state => {
           const s = { ...(state.byUser[id] ?? blankStats) }
-          s.passedTests++
+          s.passedTests += 1
           return { byUser: { ...state.byUser, [id]: s } }
         }),
+
       saveGeneral: (id, percent, avg) =>
         set(state => {
           const s = { ...(state.byUser[id] ?? blankStats) }
-          s.answers++
+          s.answers += 1
           s.totalScore += avg
           s.avgScore = Math.round(s.totalScore / s.answers)
           s.correctPercent = percent
@@ -65,15 +76,26 @@ export const useStats = create<StatsStore>()(
     }),
     {
       name: 'finch-stats',
-      version: 2,
-      migrate: persisted => {
-        const out: Record<number, UserStats> = {}
-        if (persisted && typeof persisted === 'object' && 'byUser' in persisted) {
-          for (const [k, v] of Object.entries<any>((persisted as any).byUser ?? {})) {
-            out[Number(k)] = { ...blankStats, ...v }
-          }
+      version: VERSION,
+      migrate: (persisted: unknown) => {
+        const byUser: Record<number, UserStats> = {}
+
+        if (
+          typeof persisted === 'object' &&
+          persisted !== null &&
+          'byUser' in persisted
+        ) {
+          const raw = (persisted as PersistedState).byUser ?? {}
+
+          Object.entries(raw).forEach(([key, value]) => {
+            if (typeof value === 'object' && value !== null) {
+              const partial = value as Partial<UserStats>
+              byUser[Number(key)] = { ...blankStats, ...partial }
+            }
+          })
         }
-        return { byUser: out }
+
+        return { byUser }
       }
     }
   )
