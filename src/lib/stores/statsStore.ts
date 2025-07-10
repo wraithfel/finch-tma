@@ -23,69 +23,58 @@ const blankStats: UserStats = {
 
 type StatsStore = {
   byUser: Record<number, UserStats>
-  ensureUser: (id: number) => void
   getStats: (id: number) => UserStats
   incOrders: (id: number) => void
   incQuestions: (id: number) => void
   incTests: (id: number) => void
-  saveGeneral: (id: number, correctPercent: number, avgScore: number) => void
+  saveGeneral: (id: number, percent: number, avg: number) => void
 }
 
 export const useStats = create<StatsStore>()(
   persist(
     (set, get) => ({
       byUser: {},
-      ensureUser: id =>
-        set(state =>
-          state.byUser[id]
-            ? {}
-            : { byUser: { ...state.byUser, [id]: { ...blankStats } } }
-        ),
-      getStats: id => {
-        const { byUser } = get()
-        return byUser[id] ?? blankStats
-      },
+      getStats: id => get().byUser[id] ?? blankStats,
       incOrders: id =>
         set(state => {
-          const stats = { ...blankStats, ...state.byUser[id] }
-          stats.acceptedOrders += 1
-          return { byUser: { ...state.byUser, [id]: stats } }
+          const s = { ...(state.byUser[id] ?? blankStats) }
+          s.acceptedOrders++
+          return { byUser: { ...state.byUser, [id]: s } }
         }),
       incQuestions: id =>
         set(state => {
-          const stats = { ...blankStats, ...state.byUser[id] }
-          stats.askedQuestions += 1
-          return { byUser: { ...state.byUser, [id]: stats } }
+          const s = { ...(state.byUser[id] ?? blankStats) }
+          s.askedQuestions++
+          return { byUser: { ...state.byUser, [id]: s } }
         }),
       incTests: id =>
         set(state => {
-          const stats = { ...blankStats, ...state.byUser[id] }
-          stats.passedTests += 1
-          return { byUser: { ...state.byUser, [id]: stats } }
+          const s = { ...(state.byUser[id] ?? blankStats) }
+          s.passedTests++
+          return { byUser: { ...state.byUser, [id]: s } }
         }),
-      saveGeneral: (id, correctPercent, avgScore) =>
+      saveGeneral: (id, percent, avg) =>
         set(state => {
-          const stats = { ...blankStats, ...state.byUser[id] }
-          stats.answers += 1
-          stats.totalScore += avgScore
-          stats.avgScore = Math.round(stats.totalScore / stats.answers)
-          stats.correctPercent = correctPercent
-          return { byUser: { ...state.byUser, [id]: stats } }
+          const s = { ...(state.byUser[id] ?? blankStats) }
+          s.answers++
+          s.totalScore += avg
+          s.avgScore = Math.round(s.totalScore / s.answers)
+          s.correctPercent = percent
+          return { byUser: { ...state.byUser, [id]: s } }
         })
     }),
     {
       name: 'finch-stats',
-      version: 1,
+      version: 2,
       migrate: persisted => {
-        if (!persisted || typeof persisted !== 'object') return { byUser: {} }
-        if (!('byUser' in persisted)) return { byUser: {} }
-        const byUser: Record<number, UserStats> = {}
-        for (const [k, v] of Object.entries((persisted as any).byUser || {})) {
-          byUser[Number(k)] = { ...blankStats, ...(v as UserStats) }
+        const out: Record<number, UserStats> = {}
+        if (persisted && typeof persisted === 'object' && 'byUser' in persisted) {
+          for (const [k, v] of Object.entries<any>((persisted as any).byUser ?? {})) {
+            out[Number(k)] = { ...blankStats, ...v }
+          }
         }
-        return { byUser }
+        return { byUser: out }
       }
     }
   )
 )
-

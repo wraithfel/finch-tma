@@ -1,5 +1,5 @@
 'use client'
-import React, { useCallback } from 'react'
+import React from 'react'
 import { Avatar } from '@telegram-apps/telegram-ui'
 import DefaultHeader from '@/components/DefaultHeader'
 import FullScreenLoader from '@/components/FullScreenLoader'
@@ -7,7 +7,7 @@ import StatCard from '@/components/StatCard'
 import { useTelegramUser } from '@/lib/hooks/useTelegramUser'
 import { useStats, UserStats } from '@/lib/stores/statsStore'
 
-const defaultStats: UserStats = {
+const zero: UserStats = {
   acceptedOrders: 0,
   askedQuestions: 0,
   passedTests: 0,
@@ -19,13 +19,9 @@ const defaultStats: UserStats = {
 
 export default function ProfilePage() {
   const { userData } = useTelegramUser()
-
-  const selectStats = useCallback(
-    (s: { byUser: Record<number, UserStats> }) =>
-      userData ? s.byUser[userData.id] ?? defaultStats : defaultStats,
-    [userData]
+  const stats = useStats(s =>
+    userData ? s.byUser[userData.id] ?? zero : zero
   )
-  const stats = useStats(selectStats)
 
   if (!userData) return <FullScreenLoader />
 
